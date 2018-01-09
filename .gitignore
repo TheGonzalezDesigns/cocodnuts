@@ -1,8 +1,8 @@
 */bower_components/
 */node_modules/
 /node_modules/
-*/dist/
-/dist/
+*/public/
+/public/
 .brackets.json
 package-lock.json
 index.html
