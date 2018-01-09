@@ -52,6 +52,10 @@ module.exports = {
 				use: 'pug-loader'
 			},
 			{
+				test: /\.(ttf)$/i,
+				use: 'file-loader?name=fonts/[name].[ext]'
+			},
+			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
 				use: [
 					'file-loader?name=graphics/[hash:6].[name].[ext]',
