@@ -1,0 +1,63 @@
+
+header
+	background: rgba(p.c, 0.8)
+	width 100vw
+	flex-direction row
+	display flex
+	justify-content space-around
+	align-items stretch
+	&:hover
+		.adress
+		.name
+		#checkout
+		.socialMedia
+			opacity 0.5
+	.name
+		font-family 'Nothing You Could Do'
+		font-size responsive 1rem 2.85rem
+		color: p.a
+		padding 0 4vmin
+		text-shadow: 0.1rem 0.1rem 2px p.b
+		text-align center
+		highlight()
+		@extend .flex-thirds
+		@extend .headSectHov
+	.adress
+		font-family Pompiere
+		padding 0 4vmin
+		font-size responsive 0.5rem 1.55rem
+		shade()
+		highlight()
+		@extend .flex-thirds
+		@extend .headSectHov
+	.badges
+		highlight()
+		@extend .flex-thirds
+		text-align center
+		flex-direction row
+		display flex
+		.icon
+			height 4.25vmax
+			width @height
+			transition opacity 0.2s ease-out
+			@extend .background
+			@extend .pop
+			highlight()
+		.yelp
+			background-image url('../graphics/icons/yelp.svg')
+		.shoppingBag
+			background-image url('../graphics/icons/shoppingBag.svg')
+		#checkout
+			highlight()
+			@extend .flex-seconds
+			@extend .headSectHov
+			flex-direction column
+			h4
+				font-size responsive 0.5rem 1.55rem
+				shade()
+		.socialMedia
+			highlight()
+			@extend .flex-seconds
+			@extend .headSectHov
+			height 100%
+			justify-content center

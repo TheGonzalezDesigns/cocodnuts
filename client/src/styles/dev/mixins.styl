@@ -1,0 +1,30 @@
+
+gradient(color)
+	rate = 40%
+	background-image linear-gradient(to bottom right, lighten(color, rate), darken(color, rate))
+
+
+shadowMaker(iterations, blur, color)
+	$shadows = '0 0 0 transparent'
+	for i in 1..iterations
+		$shadows += ', %spx %spx' % (i i) blur color
+
+
+longShadow(iterations = 10, blur = 0, color = rgba(0, 0, 0, .5))
+	text-shadow unquote(shadowMaker(iterations, blur, color))
+
+
+shade()
+	longShadow(color: rgba(#333, 0.08), iterations: 9, blur: 4px)
+
+
+random(min,max)
+	return floor(math(0, 'random')*(max - min + 1) + min)
+
+highlight()
+	r = random(0, 255)
+	g = random(0, 255)
+	b = random(0, 255)
+	color = rgba(r, g, b, 0.25)
+	if (dev.highlight)
+		background-color color

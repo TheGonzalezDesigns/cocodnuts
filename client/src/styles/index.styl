@@ -1,12 +1,14 @@
-@import "var.styl"
+@require "dev/*"
+@require "assets/*"
+@require "comp/*"
 
 body
 	display flex
 	width 100vw
 	min-height 100vh
-	align-content center
-	justify-content center
-	align-items center
+	align-content flex-start
+	justify-content flex-start
+	align-items flex-start
 	flex-direction column
 	margin 0
 	padding 0
@@ -14,7 +16,9 @@ body
 	border none !important
 	overflow-y auto
 	overflow-x auto
-	background-color: Colores.Azul.Gris
+	gradient(p.c)
+	background-image url(../graphics/CuttingBoard.jpg)
+	@extend .background
 	#app
 		flex-direction column
 .showcase

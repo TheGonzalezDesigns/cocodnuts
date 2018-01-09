@@ -1,0 +1,27 @@
+@import 'var.styl'
+
+.flex-thirds
+	flex-basis calc(100%/3)
+.flex-seconds
+	flex-basis 50%
+.background
+	background-origin content-box
+	background-position center center
+	background-repeat no-repeat no-repeat
+	background-size cover
+.pop
+	transition all 0.2s ease-in-out-circ
+	&:hover
+		transform translateY(0.65vmax) scale(1.1)
+.headSectHov
+	display flex
+	justify-content center
+	align-items center
+	padding-top 1vmin
+	padding-top @padding-bottom
+	cursor pointer
+	@extend .pop
+	&:hover
+		background: lighten(rgba(p.a, 0.7), 95%)
+		border-radius 1vmin
+		opacity 1 !important
