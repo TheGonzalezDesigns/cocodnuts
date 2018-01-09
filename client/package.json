@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "webpack --progress",
+		"start": "npx webpack --progress",
 		"dev": "webpack-dev-server -d",
 		"pug": "pug src/pug/index.pug -o dist/",
 		"init": "npm i && clear && npm start"
