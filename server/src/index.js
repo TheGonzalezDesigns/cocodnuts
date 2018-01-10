@@ -14,7 +14,7 @@ server.set('trust proxy', true)
 server.set('trust proxy', 'loopback')
 
 server.get('/', (req, res) => {
-	res.sendFile('index.html')
+	res.sendFile('/index.html')
 })
 
 server.get('/getData', (req, res) => {
