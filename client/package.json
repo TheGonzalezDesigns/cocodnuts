@@ -1,16 +1,11 @@
 {
-	"name": "",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"name": "client",
 	"scripts": {
 		"start": "npx webpack --progress",
 		"dev": "webpack-dev-server -d",
 		"pug": "pug src/pug/index.pug -o dist/",
 		"init": "npm i && clear && npm start"
 	},
-	"author": "hugo@thegonzalez.design",
-	"license": "ISC",
 	"dependencies": {
 		"axios": "^0.17.1",
 		"bulma.styl": "^0.6.11",

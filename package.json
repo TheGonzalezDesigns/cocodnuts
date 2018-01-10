@@ -1,4 +1,5 @@
 {
+	"name": "master",
 	"scripts": {
 		"start": "npm run git && npm run client && npm run server",
 		"client": "cd client && npm run init && cd ..",

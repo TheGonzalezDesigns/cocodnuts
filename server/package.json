@@ -1,16 +1,12 @@
 {
 	"name": "server",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"private": true,
 	"scripts": {
 		"start": "pm2 start ./src/index.js || pm2 reload all",
 		"dev": "nodemon ./src/index.js",
 		"lint": "eslint --fix src/*.js || true",
 		"init": "npm i && clear && npm start"
 	},
-	"author": "",
-	"license": "ISC",
 	"devDependencies": {
 		"body-parser": "^1.18.2",
 		"cors": "^2.8.4",
