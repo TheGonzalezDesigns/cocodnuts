@@ -2,7 +2,7 @@
 	"name": "server",
 	"private": true,
 	"scripts": {
-		"start": "pm2 start ./src/index.js || pm2 reload all",
+		"start": "pm2 start ./src/index.js || pm2 update all",
 		"dev": "nodemon ./src/index.js",
 		"lint": "eslint --fix src/*.js || true",
 		"init": "npm i && clear && npm start"
