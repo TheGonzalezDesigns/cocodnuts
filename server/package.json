@@ -5,7 +5,8 @@
 		"start": "pm2 start ./src/index.js || pm2 update all",
 		"dev": "nodemon ./src/index.js",
 		"lint": "eslint --fix src/*.js || true",
-		"init": "npm i && clear && npm start"
+		"init": "npm i && clear && npm start",
+		"test": "mocha ./src/api/tests/*"
 	},
 	"devDependencies": {
 		"body-parser": "^1.18.2",
@@ -20,5 +21,9 @@
 		"morgan": "^1.9.0",
 		"nodemon": "^1.14.3",
 		"pm2": "^2.9.1"
+	},
+	"dependencies": {
+		"mocha": "^4.1.0",
+		"mongoose": "^4.13.9"
 	}
 }
