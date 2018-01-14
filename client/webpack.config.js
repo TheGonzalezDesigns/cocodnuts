@@ -1,5 +1,6 @@
 /*global require __dirname module*/
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const freindlyFormatter = require('eslint-friendly-formatter')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const poststylus = require('poststylus')
 const webpack = require('webpack')
@@ -44,7 +45,8 @@ module.exports = {
 				loader: 'eslint-loader',
 				exclude: /node_modules|webpack.js/,
 				options: {
-					fix: true
+					fix: true,
+					formatter: freindlyFormatter,
 				}
 			},
 			{
