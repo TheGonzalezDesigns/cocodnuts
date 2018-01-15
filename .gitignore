@@ -1,8 +1,7 @@
 */bower_components/
 */node_modules/
 /node_modules/
+*/src/api/
+/src/api/
 .brackets.json
 package-lock.json
-index.html
-index.js
-index.css
