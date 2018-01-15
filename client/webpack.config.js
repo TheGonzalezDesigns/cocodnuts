@@ -58,10 +58,16 @@ module.exports = {
 				use: 'file-loader?name=fonts/[name].[ext]'
 			},
 			{
-				test: /\.(jpe?g|png|gif|svg)$/i,
+				test: /\.(jpe?g|png|gif)$/i,
 				use: [
+					'responsive-loader',
 					'file-loader?name=graphics/[hash:6].[name].[ext]',
-					'image-webpack-loader'
+				],
+			},
+			{
+				test: /\.(svg)$/i,
+				use: [
+					'file-loader?name=graphics/[hash:6].[name].[ext]'
 				],
 			}
 		],
