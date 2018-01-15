@@ -28,3 +28,13 @@ highlight()
 	color = rgba(r, g, b, 0.25)
 	if (dev.highlight)
 		background-color color
+srcsets(src, sets, width)
+	taux = width/sets
+	minWidth = round(taux)
+	source = src + '?size=' + minWidth
+	background-image url(source)
+	for set in (1..sets)
+		minWidth = round(taux * set)
+		@media screen and (min-width: unit(minWidth, 'px'))
+			source = src + '?size=' + minWidth
+			background-image url(source)
