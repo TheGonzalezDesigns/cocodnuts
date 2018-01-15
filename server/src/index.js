@@ -1,13 +1,18 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const morgan = require('morgan')
+const cors = require('cors')
 const server = express()
 const path = require('path')
+const dynamix = require('./dynamix')
 const source = path.resolve(__dirname, '../../client/public/')
 const index = path.join(source, '/index.html')
+
+const port = dynamix.port
+
 server.use(morgan('combined'))
-server.use(bodyParser.json())
+server.use(express.json({
+	strct: true
+}))
 server.use(cors())
 server.use(express.static(source))
 server.set('trust proxy', true)
@@ -17,14 +22,4 @@ server.get('/', (req, res) => {
 	res.sendFile(index)
 })
 
-server.get('/getData', (req, res) => {
-	res.send(handle.get())
-})
-
-server.post('/publish', (req, res) => {
-	res.send(handle.publish({
-		"data": req.body.data
-	}))
-})
-
-server.listen(8080)
+server.listen(port, console.warn(`Listening on ${port}`))
