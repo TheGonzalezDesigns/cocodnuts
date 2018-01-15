@@ -3,8 +3,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const server = express()
-
-const source = '../client/public/'
+const path = require('path')
+const source = path.resolve('../client/public/')
 
 server.use(morgan('combined'))
 server.use(bodyParser.json())
