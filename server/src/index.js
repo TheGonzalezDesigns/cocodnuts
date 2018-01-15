@@ -4,8 +4,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 const server = express()
 const path = require('path')
-const source = path.resolve('../client/public/')
-
+const source = path.resolve('./../client/public/')
+const index = path.join(source, 'index.html')
 server.use(morgan('combined'))
 server.use(bodyParser.json())
 server.use(cors())
@@ -14,7 +14,7 @@ server.set('trust proxy', true)
 server.set('trust proxy', 'loopback')
 
 server.get('/', (req, res) => {
-	res.sendFile(source + 'index.html')
+	res.sendFile(index)
 })
 
 server.get('/getData', (req, res) => {
