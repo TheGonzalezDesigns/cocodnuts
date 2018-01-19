@@ -1,6 +1,8 @@
 */bower_components/
 */node_modules/
-/node_modules/
+/node_modules/ 
+*/server/node_modules/
+*/server/node_modules/*
 */src/api/
 /src/api/
 .brackets.json
