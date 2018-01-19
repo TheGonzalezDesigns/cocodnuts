@@ -3,15 +3,15 @@
 	"private": true,
 	"scripts": {
 		"start": "pm2 start ./src/index.js || pm2 update all",
-		"dev": "nodemon ./src/index.js",
-		"lint": "eslint --fix src/*.js || true",
+		"dev": "nodemon src/index.js -exec npm run lint",
+		"lint": "eslint --format=node_modules/eslint-formatter-pretty --fix src/",
 		"init": "npm i && clear && npm start",
 		"test": "mocha ./src/api/tests/*"
 	},
 	"devDependencies": {
-		"cors": "^2.8.4",
-		"eslint": "^4.14.0",
+		"eslint": "^4.15.0",
 		"eslint-config-standard": "^11.0.0-beta.0",
+		"eslint-formatter-pretty": "^1.3.0",
 		"eslint-plugin-import": "^2.8.0",
 		"eslint-plugin-node": "^5.2.1",
 		"eslint-plugin-promise": "^3.6.0",
@@ -22,6 +22,8 @@
 		"pm2": "^2.9.1"
 	},
 	"dependencies": {
+		"axios": "^0.17.1",
+		"cors": "^2.8.4",
 		"mocha": "^4.1.0",
 		"mongoose": "^4.13.9"
 	}
