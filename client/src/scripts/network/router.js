@@ -2,21 +2,13 @@
 import axios from 'axios'
 
 let client = axios.create({
-	baseURL: ''
+	baseURL: 'https://cocodnuts.com'
 })
 
-function validate(res) {
-	return (res) && (res.status >= 200) && (res.status < 300)
+exports.getData = async () => {
+	return await client.get('/getData')
 }
 
-function requestData(ifvalid, iferror) {
-	client.get('/getData').then(res => ifvalid(res)).catch(err => iferror(err))
+exports.updateData = async (data) => {
+	await client.post('/publish', data)
 }
-
-function updateData(data, ifvalid, iferror) {
-	client.post('/publish', data).then(res => ifvalid(res)).catch(err => iferror(err))
-}
-
-exports.validate = validate
-exports.requestData = requestData
-exports.updateData = updateData
