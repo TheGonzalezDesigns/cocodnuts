@@ -28,13 +28,31 @@ highlight()
 	color = rgba(r, g, b, 0.25)
 	if (dev.highlight)
 		background-color color
-srcsets(src, sets, width)
+genLan(src, sets, width)
 	taux = width/sets
 	minWidth = round(taux)
 	source = src + '?size=' + minWidth
 	background-image url(source)
 	for set in (1..sets)
 		minWidth = round(taux * set)
-		@media screen and (min-width: unit(minWidth, 'px'))
+		@media only screen and (orientation: landscape) and (min-width: unit(minWidth, 'px'))
+			set += set < sets ? 1 : 0
+			minWidth = round(taux * set)
 			source = src + '?size=' + minWidth
 			background-image url(source)
+genPor(src, sets, height)
+	taux = height/sets
+	minHeight = round(taux)
+	source = src + '?size=' + minHeight
+	background-image url(source)
+	for set in (1..sets)
+		minHeight = round(taux * set)
+		@media only screen and (orientation: portrait) and (min-height: unit(minHeight, 'px'))
+			set += set < sets ? 1.5 : 0
+			minHeight = round(taux * set)
+			source = src + '?size=' + minHeight
+			background-image url(source)
+			background-position-x right
+srcsets(src, sets, width, height)
+	genLan(src, sets, width)
+	genPor(src, sets, height)
