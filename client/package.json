@@ -2,7 +2,7 @@
 	"name": "client",
 	"scripts": {
 		"start": "npx webpack --progress",
-		"dev": "webpack-dev-server -d",
+		"dev": "webpack -w --progress",
 		"pug": "pug src/pug/index.pug -o dist/",
 		"init": "npm i && clear && npm start"
 	},
