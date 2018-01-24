@@ -1,0 +1,22 @@
+- menu = 'food.menu.'
+- condition = "view === 'menu'"
+transition(name='fade' v-if=condition): ul#menu
+	- displaying = menu + 'displaying'
+	- categories = menu + 'categories'
+	- preview = menu + 'preview'
+	transition(name=`fade` v-if=`${displaying}.length`)
+		li(@click=`${displaying} = []`) Go Back
+	transition(name=`fade` v-for=`category in ${categories}`)
+		li(@click=`selectList(category)` v-if=`${displaying}.length == 0`) {{category}}
+	transition(name=`fade` v-for=`item in ${displaying}`)
+		li(@click=`${preview} = item`) {{item.name}}
+transition(name='fade' v-if=condition): #preview
+	.item
+		- preview = menu + 'preview.'
+		.photo: img(:src=`${preview}photo`)
+		.content
+			h1.name=`{{${preview}name}}`
+			h2.price=`{{${preview}price}}`
+			pre.description=`{{${preview}description}}`
+			hr
+			h4.category(@click="addOrder(food.menu.preview)") Add to order

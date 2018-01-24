@@ -1,14 +1,16 @@
+@require "globals/*"
 @require "dev/*"
 @require "assets/*"
 @require "comp/*"
+@require "comp/body/*"
 
 body
 	display flex
 	width 100vw
 	min-height 100vh
-	align-content flex-start
-	justify-content flex-start
-	align-items flex-start
+	align-content stretch
+	justify-content stretch
+	align-items stretch
 	flex-direction column
 	margin 0
 	padding 0
@@ -18,9 +20,15 @@ body
 	overflow-x auto
 	gradient(p.c)
 	@extend .background
-	srcsets('../graphics/CuttingBoard.jpg', 25, 6144, 4069)
+	srcsets('../graphics/CuttingBoard.jpg', 1, 6144, 4069)
+	//srcsets('../graphics/DonutBeach.jpg', 1, 3320, 2250)
 	#app
 		flex-direction column
+		align-content stretch
+		justify-content stretch
+		align-items stretch
+		display flex
+		height 100vh
 .showcase
 	position fixed
 	top 0

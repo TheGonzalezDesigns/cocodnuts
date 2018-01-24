@@ -14,8 +14,8 @@ longShadow(iterations = 10, blur = 0, color = rgba(0, 0, 0, .5))
 	text-shadow unquote(shadowMaker(iterations, blur, color))
 
 
-shade()
-	longShadow(color: rgba(#333, 0.08), iterations: 9, blur: 4px)
+shade(color = #333)
+	longShadow(color: rgba(color, 0.08), iterations: 9, blur: 4px)
 
 
 random(min,max)
@@ -53,6 +53,36 @@ genPor(src, sets, height)
 			source = src + '?size=' + minHeight
 			background-image url(source)
 			background-position-x right
-srcsets(src, sets, width, height)
+srcsets(src, sets, width, height, wane = 0)
+	sets = sets ? sets : 1
+	wane = wane < sets ? wane > 0 ? wane : 0 : sets - 1
+	sets -= wane
+	decrease = sets * 0.1
+	width -= width * decrease
+	height -= height * decrease
 	genLan(src, sets, width)
 	genPor(src, sets, height)
+genH(min, max, unit = 'rem')
+	for i in (1..6)
+		rate = (i - 1) * 1/6
+		max -= max * rate
+		min -= min * rate
+		max = unit(max, unit)
+		min = unit(min, unit)
+		class = '.h' + i
+		{class}
+			font-size responsive min max
+animate(name, start, end)
+	startKeys = keys(start)
+	endKeys = keys(end)
+	startValues = values(start)
+	endValues = values(end)
+	.{name}-enter-active
+	.{name}-leave-active
+		@extend .transition
+		for i in (1..6)
+			background red
+	.{name}-enter
+	.{name}-leave-to
+		for i in (1..6)
+			background red

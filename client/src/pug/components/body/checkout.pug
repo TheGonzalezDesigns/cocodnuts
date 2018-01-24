@@ -1,0 +1,27 @@
+transition(name='fade' v-if=`view === 'checkout'`): #checkout
+	.field.is-grouped.is-grouped-centered
+		.control(style='text-align: center')
+			p.help Checkout
+			p.help
+				| Your Total:
+				span ${{total}}
+	//#charge-error.alert.alert-danger(class="{{#if noError}}hidden{{/if}}")
+		| {{errMsg}}
+	form.field.is-horizontal.is-grouped.is-grouped-centered
+		.control.left
+			label.label(for="name") Name
+			.control: input.input(type="text" required=""  name="name")
+			label.label(for="address") Address
+			.control: input.input(type="text" required="" name="address")
+			label.label
+			.control: button.button.is-primary(type="submit" @click="submitOrder()") Place Order
+		hr
+		.control
+			label.label(for="cardName") Card Holder Name
+			.control: input.input(type="text" required="" name="cardName")
+			label.label(for="cardNumber") Credit Card Number
+			.control: input.input(type="text" required="" name="cardNumber")
+			label.label(for="cardExpiry") Expiration
+			.control: input.input(type="month" required="" value="2019-01")
+			label.label(for="cardCvc") CVC
+			.control: input.input(type="text" required="" name="cardCvc")

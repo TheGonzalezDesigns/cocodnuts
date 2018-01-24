@@ -9,43 +9,14 @@ const vm = new Vue({
 	el: '#app',
 	data: {
 		food: {
-			trending: {
-				populated: false,
-				data: {},
-			},
-			latest: {
-				populated: false,
-				data: {},
-			},
-			frequent: {
-				populated: false,
-				data: {},
-			},
-			menu: [
-				{
-					name: 'milkshake',
-					category: 'drinks',
-					price: '9.99',
-					photo: 'http://www.portalsabores.com.br/wp-content/uploads/2014/08/Spiked-Milkshakes.jpg',
-					description: 'Yum!',
-					index: 0
-				},
-				{
-					name: 'media luna',
-					category: 'pan',
-					price: '2.99',
-					photo: 'https://thehappening.com/wp-content/uploads/2016/02/cafe-y-pan.jpg',
-					description: '¡Delicioso!',
-					index: 2
-				},
-				{
-					name: 'apple pie',
-					category: 'deserts',
-					price: '100.99',
-					photo: 'http://www.willcookforsmiles.com/wp-content/uploads/2016/09/Apple-Pie-Bread-Pudding-3-from-willcookforsmiles.com_.jpg',
-					description: 'Yum!'
-				},
-			],
+			menu: {
+				items: [],
+				categories: [],
+				lists: [],
+				displaying: [],
+				popular: [],
+				preview: {},
+			}
 		},
 		schedule: {
 			open: {
@@ -55,46 +26,76 @@ const vm = new Vue({
 				time: ''
 			},
 		},
-		components: {
-			suggested: {
-				populated: true,
-				show: false,
-				data: {},
-			},
+		order: {
+			total: 0
 		},
-		stats: {
-
-		},
+		view: '',
+		total: 0
 	},
 	methods: {
-		updateSuggested() {
-			const suggested = this.components.suggested
-			const frequent = this.food.frequent
-			const trending = this.food.trending
-			const latest = this.food.latest
-			if (frequent.populated) {
-				suggested.data = frequent.data
-			} else if (trending.populated) {
-				suggested.data = trending.data
-			} else if (latest.populated) {
-				suggested.data = latest.data
-			} else suggested.populated = false
-			suggested.show = suggested.populated
+		updatePopular() {
+			//this.food.popular;
 		},
-		updateFrequent(frequent) {
-			this.food.frequent = frequent
+		updateCategories() {
+			const menu = this.food.menu
+			const categories = menu.items.map(item => item.category)
+			menu.categories = [...new Set(categories)]
 		},
-		updateTrending(trending) {
-			this.food.trending = trending
-		},
-		updateLatest(latest) {
-			this.food.latest = latest
+		updateLists() {
+			const menu = this.food.menu
+			const items = menu.items
+			const categories = menu.categories
+			const filter = (category, items) => items.filter(item => item.category == category)
+			const lists = categories.map(category => filter(category, items))
+			lists.forEach((list, index) => {
+				const category = categories[index]
+				menu.lists[category] = list
+			})
 		},
 		async populateClient() {
-			const data = await router.getData()
-			this.updateFrequent(data.frequent)
-			this.updateTrending(data.trending)
-			this.updateLatest(data.latest)
+			const res = await router.requestMenu()
+			if (res.valid) {
+				const data = res.data
+				this.food.menu.items = data
+				this.updateCategories()
+				this.updateLists()
+				//this.updatePopular()
+			}
+		},
+		selectList(category) {
+			this.food.menu.displaying = this.food.menu.lists[category]
+			this.calesitar()
+		},
+		calesitar() {
+			const list = this.food.menu.displaying.length ? this.food.menu.displaying : this.food.menu.items
+			const max = list.length - 1
+			const index = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
+			const data = list[index(max)]
+			this.food.menu.preview = data
+		},
+		addOrder(item) {
+			let order = this.order[item.name]
+			let data = item
+			if (!order) {
+				data = {
+					name: data.name,
+					price: data.price,
+					quantity: 0
+				}
+				order = data
+			}
+			order.quantity += 1
+			this.order.total += 1
+			this.total += order.price
+		},
+		removeOrder(item) {
+			let order = this.order[item.name]
+			if (order) {
+				order.quantity -= order.quantity ? 1 : 0
+			}
+		},
+		setView(view) {
+			this.view = view
 		}
 	},
 	watch: {
@@ -103,8 +104,10 @@ const vm = new Vue({
 	computed: {
 		async start() {
 			await this.populateClient()
-			await this.updateSuggested()
-		},
+			this.calesitar()
+			setInterval(this.calesitar, 5000)
+			this.setView('menu')
+		}
 	},
 	mounted() {
 		this.$nextTick(() => {
@@ -112,4 +115,4 @@ const vm = new Vue({
 		})
 	},
 })
-//global.vm = vm //For debugging only
+global.vm = vm //For debugging only

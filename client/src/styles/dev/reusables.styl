@@ -1,27 +1,45 @@
 @import 'var.styl'
+@import 'mixins.styl'
 
 .flex-thirds
 	flex-basis calc(100%/3)
 .flex-seconds
 	flex-basis 50%
 .background
-	background-origin content-box
+	background-origin border-box
 	background-position center center
 	background-repeat no-repeat no-repeat
 	background-size cover
-.pop
+.transition
 	transition all 0.2s ease-in-out-circ
+	cursor pointer
+.pop
+	@extend .transition
+	transform translateY(0vmax) scale(0.975)
 	&:hover
-		transform translateY(0.65vmax) scale(1.1)
+	&:active
+		transform translateY(-0.15vmax) scale(1)
 .headSectHov
 	display flex
 	justify-content center
 	align-items center
-	padding-top 1vmin
-	padding-top @padding-bottom
 	cursor pointer
 	@extend .pop
 	&:hover
+	&:active
 		background: lighten(rgba(p.a, 0.7), 95%)
 		border-radius 1vmin
 		opacity 1 !important
+.text-shadow
+	text-shadow: 0.1rem 0.1rem 2px p.b
+genH(0.75, 2.85)
+.caveat
+	font-family caveat
+	text-transform capitalize
+	text-shadow: 0.1vmax 0.1vmax 0.1vmax p.e, 0.2vmax 0.2vmax 0.05vmax darken(p.e, 0.6)
+	color white
+.caveat-green
+	font-family caveat
+	text-transform capitalize
+	text-shadow: 0.1vmax 0.1vmax 0.1vmax p.b, 0.2vmax 0.2vmax 0.05vmax darken(p.a, 0.6)
+	color white

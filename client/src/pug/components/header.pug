@@ -1,10 +1,12 @@
 header
-	h2.adress 7161 Lindley Ave Ste 100 Reseda, CA 91335
-	h1.name Coco D' Nuts
+	.about
+		h2.adress 7161 Lindley Ave Ste 100 Reseda, CA 91335
+		hr
+		h2.schedule Open 3pm to 6pm PST
+	h1.name(@click=`setView('menu')`) Coco D' Nuts
 	.badges
-		#checkout
-			.icon.shoppingBag
-			h4 Complete Order
+		#checkoutButton(@click=`setView('checkout')`)
+			.icon.shoppingBag(:title="order.total")
+			.subtext Complete Order
 		.socialMedia
-			a.icon.yelp(href="https://www.yelp.com/biz/coco-d-nuts-reseda" title="Yelp" target="_blank")
 			a.icon.yelp(href="https://www.yelp.com/biz/coco-d-nuts-reseda" title="Yelp" target="_blank")
