@@ -1,0 +1,31 @@
+@require "./../dev/mixins.styl"
+@require "./../dev/reusables.styl"
+
+name = 'fade'
+.{name}-enter-active
+.{name}-leave-active
+	@extend .transition
+	opacity 1
+.{name}-enter
+.{name}-leave-to
+	opacity 0
+name = 'fadeInLeft'
+.{name}-enter-active
+.{name}-leave-active
+	@extend .transition
+	opacity 1
+	transform translateX(0%)
+.{name}-enter
+.{name}-leave-to
+	opacity 0
+	transform translateX(-100%)
+name = 'fadeInRight'
+.{name}-enter-active
+.{name}-leave-active
+	@extend .transition
+	opacity 1
+	transform translateX(0%)
+.{name}-enter
+.{name}-leave-to
+	opacity 0
+	transform translateX(100%)
