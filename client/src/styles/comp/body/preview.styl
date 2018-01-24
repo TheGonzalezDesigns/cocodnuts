@@ -1,0 +1,133 @@
+@import "var.styl"
+@import "reusables.styl"
+genH(0.15, 2)
+#preview
+	highlight()
+	@extend .flex-seconds
+	display flex
+	align-content center
+	align-items center
+	justify-content center
+	flex-direction column
+	.item
+		max-width 75%
+		max-height 90%
+		background-color #574444
+		background-image: linear-gradient(45deg, darken(mix(#614C4C, Colores.Jaune.Soleil), 10%), lighten(mix(#DED4B6, Colores.Jaune.Soleil), 40%)), url(pattern)
+		background-blend-mode overlay
+		border-radius 10px
+		box-shadow 0.1vmax 0.1vmax 1vmax lighten(#222, 15%)
+		position relative
+		&:before
+		&:after
+			//content ""
+			@extend .background
+			position absolute
+		&:before
+			- width = 2722
+			- height = 2186
+			- ratio = width/height
+			- size = 8.75vmax * ratio
+			- position = size/3 * -1
+			height size
+			min-width @height
+			background-size @height @width
+			top -6vmin
+			left -15vmin
+			transform rotate(120deg)
+			//2722 × 2186
+			background-image url('../graphics/coffeeCup.png')
+		&:after
+			- width = 2284
+			- height = 3217
+			- ratio = width/height
+			- size = 30.75vmax * ratio
+			- position = size/3 * -1
+			height size
+			min-width @height
+			background-size @height @width
+			bottom -6vmin
+			left -3vmin
+			transform rotate(75deg)
+			//2722 × 2186
+			background-image url('../graphics/beans.png')
+		.photo
+			width auto
+			margin 0
+			padding 0
+			img
+				width 100%
+				height auto
+				border-top-left-radius @border-radius
+				margin 0
+				padding 0
+				max-height 45vmin
+		.content
+			margin 0
+			//padding 0.5vmin 2vmin
+			font-family sans-serif
+			text-align center
+			.name
+				@extend .h1
+				color: lighten(#DED4B6, 40%)
+				text-shadow 0.1vmax 0.1vmax 0.1vmax #F75C66
+				font-family 'Merienda One'
+				text-transform capitalize
+			.price
+				@extend .h3
+				color: lighten(#DED4B6, 20%)
+				text-shadow 0.1vmax 0.1vmax 0.1vmax #5FB392
+				font-family 'Merienda One'
+				&:before
+					content "$"
+			.description
+				@extend .h2
+				font-family inherit
+				white-space pre-wrap
+				color: lighten(#DED4B6, 40%)
+				text-shadow 0.1vmax 0.1vmax 0.1vmax #F75C66
+				overflow-x hidden
+				overflow-y auto
+				max-height 15vmin
+				padding 0 2vmin
+				background transparent
+				font-family 'Merienda One'
+			hr
+				color transparent
+				height 0.35vmin
+				background @color
+				border 0.2vmin solid
+				border-color lighten(desaturate(#614C4C, 20%), 40%)
+				border-left none
+				border-right none
+				position relative
+				width 90%
+				margin-left 5%
+				margin-right 5%
+				text-align left //prevents the prop's inherited value from moving the borders rightward
+				&:after
+				&:before
+					position absolute
+					content " "
+					width 90%
+					margin-left 5%
+					margin-right 5%
+					height 0.1vmin
+					background lighten(@border-color, 20%)
+				&:after
+					top 0.85vmin
+				&:before
+					bottom 0.85vmin
+			.category
+				@extend .h3
+				text-transform uppercase
+				letter-spacing 0.25vmin
+				color lighten(#DB9B35, 85%)
+				text-shadow 0.1vmax 0.1vmax 0.1vmax #DB9B35
+				font-weight 100
+				font-family 'Merienda One'
+				&:after
+				&:before
+					content "∸"
+					opacity 0.9
+					font-weight bold
