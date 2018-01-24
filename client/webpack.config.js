@@ -61,13 +61,13 @@ module.exports = {
 				test: /\.(jpe?g|png|gif)$/i,
 				use: [
 					'responsive-loader',
-					'file-loader?name=graphics/[hash:6].[name].[ext]',
+					'file-loader?name=graphics/[name].[ext]',
 				],
 			},
 			{
 				test: /\.(svg)$/i,
 				use: [
-					'file-loader?name=graphics/[hash:6].[name].[ext]'
+					'file-loader?name=graphics/[name].[ext]'
 				],
 			}
 		],
