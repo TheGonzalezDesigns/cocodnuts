@@ -7,8 +7,4 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 				span ${{total}}
 	form#payment-form
 		.control
-			//label.label(for="card-element") Credit or debit card
-			#card-element
-			.field-label
-			button.button.is-success(@click='charge()') Place Order
-			#card-errors.help(role="alert")
+			stripe

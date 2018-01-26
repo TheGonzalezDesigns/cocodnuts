@@ -2,7 +2,7 @@ header
 	.about
 		h2.adress 7161 Lindley Ave Ste 100 Reseda, CA 91335
 		hr
-		h2.schedule Open 3pm to 6pm PST
+		h2.schedule Open {{schedule.freindly.opening}} to {{schedule.freindly.closing}}
 	h1.name(@click=`setView('menu')`) Coco D' Nuts
 	.badges
 		#checkoutButton(@click=`setView('checkout')`)

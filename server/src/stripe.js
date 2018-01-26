@@ -3,6 +3,7 @@ exports.charge = (amount = 1000, currency = 'usd', source) => {
 		secret_key
 	} = require('./dynamix')
 	const stripe = require("stripe")(secret_key);
+	console.log('Source', source)
 	stripe.charges.create({
 		amount: amount,
 		currency: currency,

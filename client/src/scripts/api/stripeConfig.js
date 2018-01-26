@@ -4,7 +4,7 @@ exports.style = {
 	base: {
 		color: '#32325d',
 		lineHeight: '18px',
-		fontFamily: '"Pompiere, sans-serif',
+		fontFamily: '"Roboto Slab", sans-serif',
 		fontSmoothing: 'antialiased',
 		fontSize: '16px',
 		'::placeholder': {
