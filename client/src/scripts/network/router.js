@@ -60,4 +60,30 @@ exports.updateMenu = async original => {
 	}
 }
 
+exports.requestDate = async () => {
+	let res
+	const date = new Date()
+	const today = date.toJSON().slice(0, 10)
+	const _default = '2111-11-11'
+	const req = (date) => {
+		return {
+			route: 'find',
+			type: 'schedule',
+			data: {
+				meta: {
+					query: {
+						date: date
+					}
+				}
+			},
+			metaOnly: true
+		}
+	}
+	console.log('Requesting Date...')
+	res = await client.post('/', req(today))
+	if (res.length) return res
+	res = await client.post('/', req(_default))
+	return res.data[0]
+}
+
 exports.validate = validate

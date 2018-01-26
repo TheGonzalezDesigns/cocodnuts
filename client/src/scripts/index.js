@@ -20,12 +20,13 @@ const vm = new Vue({
 			}
 		},
 		schedule: {
-			open: {
-				time: ''
-			},
-			close: {
-				time: ''
-			},
+			opening: '',
+			colosing: '',
+			open: true,
+			freindly: {
+				opening: '',
+				colosing: '',
+			}
 		},
 		order: {
 			total: 0
@@ -60,7 +61,6 @@ const vm = new Vue({
 				this.food.menu.items = data
 				this.updateCategories()
 				this.updateLists()
-				//this.updatePopular()
 			}
 		},
 		selectList(category) {
@@ -96,7 +96,45 @@ const vm = new Vue({
 			}
 		},
 		setView(view) {
+			console.log('Setting view to ', view)
 			this.view = view
+		},
+		async getSchedule() {
+			const date = await router.requestDate()
+			const legible = (string) => {
+				const parse = (string, a, b) => parseFloat(string.slice(a, b))
+				const hours = parse(string, 0, 2)
+				const minutes = parse(string, 3, 5)
+				const timeOfDay = hours < 12 ? 'AM' : 'PM'
+				const formatted = (hours % 12) ? hours : timeOfDay == 'PM' ? '12' : '00'
+				const time = formatted + ':' + minutes + ' ' + timeOfDay
+				return time
+			}
+			this.schedule.opening = date.opening
+			this.schedule.closing = date.closing
+			this.schedule.freindly.opening = legible(date.opening)
+			this.schedule.freindly.closing = legible(date.closing)
+		},
+		compareHours() {
+			const date = new Date()
+			const now = date.date.toTimeString().slice(0, 5)
+			const convertTime = (string) => {
+				const parse = (string, a, b) => parseFloat(string.slice(a, b))
+				const hours = parse(string, 0, 2) * 60
+				const minutes = parse(string, 3, 5)
+				const time = hours + minutes
+				return time
+			}
+			const currently = convertTime(now)
+			const opening = convertTime(this.opening)
+			const closing = convertTime(this.closing)
+			this.schedule.open = (currently >= opening) && (currently < closing)
+		},
+		async initiateStoreHours() {
+			console.log('Initiating Store Hours')
+			await this.getSchedule()
+			this.compareHours()
+			console.log('Finishing Store Hours')
 		}
 	},
 	watch: {
@@ -104,10 +142,12 @@ const vm = new Vue({
 	},
 	computed: {
 		async start() {
-			await this.populateClient()
-			this.calesitar()
-			setInterval(this.calesitar, 5000)
-			this.setView('menu')
+			//await this.populateClient()
+			//this.calesitar()
+			//setInterval(this.calesitar, 5000)
+			//this.initiateStoreHours()
+			//const view = this.schedule.open ? 'menu' : 'closed'
+			//this.setView(view)
 			//stripe.start()
 		}
 	},

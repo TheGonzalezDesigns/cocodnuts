@@ -9376,7 +9376,7 @@ header .badges #checkoutButton .subtext,
 }
 .h3,
 header .about,
-#checkout input,
+#checkout .input,
 #preview .item .content .price,
 #preview .item .content .category {
   font-size: calc(0.416666666666667rem + 1.166666666666666 * ((100vw - 26.25rem) / 53.75));
@@ -9384,7 +9384,7 @@ header .about,
 @media screen and (min-width: 1280px) {
   .h3,
 header .about,
-#checkout input,
+#checkout .input,
 #preview .item .content .price,
 #preview .item .content .category {
     font-size: 1.583333333333333rem;
@@ -9393,7 +9393,7 @@ header .about,
 @media screen and (max-width: 420px) {
   .h3,
 header .about,
-#checkout input,
+#checkout .input,
 #preview .item .content .price,
 #preview .item .content .category {
     font-size: 0.416666666666667rem;
@@ -9440,14 +9440,17 @@ header .about,
 }
 .caveat,
 header .badges #checkoutButton,
-#checkout .help {
+#checkout .help,
+#closed h1,
+#closed h2 {
   font-family: caveat;
   text-transform: capitalize;
   text-shadow: 0.1vmax 0.1vmax 0.1vmax #df6866, 0.2vmax 0.2vmax 0.05vmax #de6663;
   color: #fff;
 }
 .caveat-green,
-#checkout .help:last-of-type span {
+#checkout .help:last-of-type span,
+#closed h4 {
   font-family: caveat;
   text-transform: capitalize;
   text-shadow: 0.1vmax 0.1vmax 0.1vmax #8bad92, 0.2vmax 0.2vmax 0.05vmax #3a6a76;
@@ -9665,7 +9668,7 @@ header .badges .socialMedia {
     font-size: 1rem;
   }
 }
-#checkout input {
+#checkout .input {
   background: rgba(255,255,255,0.92);
   font-family: Roboto Slab;
   text-transform: capitalize;
@@ -9703,6 +9706,66 @@ header .badges .socialMedia {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+#closed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+#closed h1 {
+  font-size: calc(1rem + 4 * ((100vw - 26.25rem) / 53.75));
+}
+@media screen and (min-width: 1280px) {
+  #closed h1 {
+    font-size: 5rem;
+  }
+}
+@media screen and (max-width: 420px) {
+  #closed h1 {
+    font-size: 1rem;
+  }
+}
+#closed h2 {
+  font-size: calc(0.75rem + 4 * ((100vw - 26.25rem) / 53.75));
+}
+@media screen and (min-width: 1280px) {
+  #closed h2 {
+    font-size: 4.75rem;
+  }
+}
+@media screen and (max-width: 420px) {
+  #closed h2 {
+    font-size: 0.75rem;
+  }
+}
+#closed h4 {
+  font-size: calc(0.5rem + 3.5 * ((100vw - 26.25rem) / 53.75));
+}
+@media screen and (min-width: 1280px) {
+  #closed h4 {
+    font-size: 4srem;
+  }
+}
+@media screen and (max-width: 420px) {
+  #closed h4 {
+    font-size: 0.5rem;
+  }
+}
+#closed h4 a {
+  font-family: Roboto Slab;
+  font-weight: lighter;
 }
 main {
   display: -webkit-box;

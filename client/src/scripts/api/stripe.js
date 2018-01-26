@@ -1,34 +1,55 @@
 /*global exports */
 /*global Stripe */
-//import Stripe from 'stripe'
-//import stripePackage from 'stripe';
-import config from './stripeConfig'
 import {
-	handler
-} from './stripeHandler'
+	Card,
+	createToken
+} from 'vue-stripe-elements-plus'
+import {
+	key,
+	style
+} from './stripeConfig.js'
+import Vue from 'vue'
+import axios from 'axios'
 
-const stripe = Stripe(config.key)
-const elements = stripe.elements()
+const client = axios.create({
+	//baseUrl: 'cocodnuts.com'
+	proxy: {
+		host: '127.0.0.1',
+		port: 8080
+	}
+})
 
-const card = elements.create('card', config.style)
-card.mount('#card-element')
-
-card.addEventListener('change', (event) => document.getElementById('card-errors').textContent = event.error ? event.error.message : '')
-
-const form = document.getElementById('payment-form')
-form.addEventListener('submit', async (event) => {
-	event.preventDefault()
-
-	const {
-		token,
-		error
-	} = await stripe.createToken(card)
-
-	if (error) {
-		const errorElement = document.getElementById('card-errors')
-		errorElement.textContent = error.message
-	} else {
-		// Send the token to your server
-		handler(token)
+Vue.component('stripe', {
+	template: `
+	<div id='stripe'>
+		<card class='stripe-card'
+			:class='{ complete }'
+			stripe='${key}'
+			:options='stripeOptions'
+			@change='complete = $event.complete'
+    	/>
+		<label class="label"></label>
+    	<button class='pay-with-stripe button is-success' @click='pay' :disabled='!complete'> Place Order !</button>
+		<div id='card-errors' class='help'  role="alert"></div>
+	</div>`,
+	data() {
+		return {
+			complete: false,
+			stripeOptions: style
+		}
+	},
+	components: {
+		Card
+	},
+	methods: {
+		async pay() {
+			// createToken returns a Promise which resolves in a result object with
+			// either a token or an error key.
+			// See https://stripe.com/docs/api#tokens for the token object.
+			// See https://stripe.com/docs/api#errors for the error object.
+			// More general https://stripe.com/docs/stripe.js#stripe-create-token.
+			const token = await createToken()
+			client.post('/charge', token)
+		}
 	}
 })
