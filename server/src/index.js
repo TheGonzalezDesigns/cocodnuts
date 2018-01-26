@@ -6,6 +6,9 @@ const cors = require('cors')
 const {
 	cartel
 } = require('./cartel')
+const {
+	charge
+} = require('./stripe')
 
 const source = path.resolve(__dirname, '../../client/public/')
 const index = path.join(source, '/index.html')
@@ -29,6 +32,14 @@ server.post('/', async (req, res) => {
 	console.log('Recieved POST\n', req.body)
 	const data = await cartel(req.body)
 	res.send(data)
+})
+server.post('/charge', async (req, res) => {
+	console.log('Recived POST (/Charge)\n', req.body)
+	const token = req.body.stripeToken
+	console.log('Token:', token)
+	charge({
+		source: token
+	})
 })
 
 server.listen(port, console.warn(`Listening on ${port}`))

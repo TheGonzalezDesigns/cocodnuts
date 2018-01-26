@@ -104,5 +104,5 @@ module.exports = {
 			vue: 'vue/dist/vue.js',
 			normalize: 'normalize/index.styl'
 		}
-	},
+	}
 }

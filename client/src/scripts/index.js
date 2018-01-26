@@ -1,9 +1,10 @@
 /*eslint no-unused-vars: ["warn", { "vars": "local" },]*/
-/*global styles global*/
+/*global styles*/
+/*global global*/
 import styles from './styles'
 import Vue from 'vue'
+import stripe from './api/stripe'
 import router from './network/router'
-//import organic from './organic'
 
 const vm = new Vue({
 	el: '#app',
@@ -107,12 +108,13 @@ const vm = new Vue({
 			this.calesitar()
 			setInterval(this.calesitar, 5000)
 			this.setView('menu')
+			//stripe.start()
 		}
 	},
 	mounted() {
 		this.$nextTick(() => {
 			vm.start()
 		})
-	},
+	}
 })
 global.vm = vm //For debugging only
