@@ -9,13 +9,11 @@
 	"dependencies": {
 		"axios": "^0.17.1",
 		"bulma.styl": "^0.6.11",
-		"eslint-plugin-promise": "^3.6.0",
-		"eslint-plugin-standard": "^3.0.1",
 		"express": "^4.16.2",
 		"normalize": "^0.3.1",
 		"stripe": "^5.4.0",
 		"vue": "^2.5.13",
-		"vue-axios-plugin": "^1.2.2"
+		"vue-stripe-elements-plus": "^0.2.7"
 	},
 	"devDependencies": {
 		"autoprefixer": "^7.2.3",
@@ -32,6 +30,7 @@
 		"eslint-loader": "^1.9.0",
 		"eslint-plugin-import": "^2.8.0",
 		"eslint-plugin-node": "^5.2.1",
+		"eslint-plugin-standard": "^3.0.1",
 		"extract-text-webpack-plugin": "^3.0.2",
 		"file-loader": "^1.1.6",
 		"html-webpack-plugin": "^2.30.1",
