@@ -3,10 +3,12 @@ html(lang="en")
 	include struct/head.pug
 	body
 		#app
-			include components/header
-			main
-				include components/body/menu
-				include components/body/checkout
-				include components/body/closed
+			#all(:class='{displayFlex: ready}')
+				include components/header
+				main
+					include components/body/menu
+					include components/body/checkout
+					include components/body/closed
+			include components/loader
 		include components/attributions
 		script(src="https://js.stripe.com/v3/")

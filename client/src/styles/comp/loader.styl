@@ -1,0 +1,42 @@
+#loader
+  height 100%
+  position relative
+  @extend .transition
+  @extend .animation
+  @extend .alternate
+  animation-name pulsating_background
+  background-color: lighten(p.e, 10%)
+  @keyframes pulsating_background
+    from
+      background: rgba(@background-color, 0.2)
+    to
+      background: @background-color
+  .under
+    position absolute
+    @extend .center
+    @extend .expand
+    &:after
+      background-image url('../graphics/icons/donut.svg')
+      animation-name spin
+      opacity 0
+      @extend .loader
+  .over
+    position absolute
+    @extend .center
+    @extend .expand
+    &:after
+      background-image url('../graphics/icons/coffee_cup.svg')
+      animation-name fade
+      @extend .loader
+@keyframes spin
+  from
+    transform rotate(0deg) scale(0.5)
+    opacity 0
+  to
+    transform rotate(360deg) scale(1)
+    opacity 1
+@keyframes fade
+  from
+    opacity 1
+  to
+    opacity 0

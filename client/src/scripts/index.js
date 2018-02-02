@@ -32,7 +32,8 @@ const vm = new Vue({
 			total: 0
 		},
 		view: '',
-		total: 0
+		total: 0,
+		ready: false
 	},
 	methods: {
 		updatePopular() {
@@ -142,12 +143,13 @@ const vm = new Vue({
 	},
 	computed: {
 		async start() {
-			//await this.populateClient()
-			//this.calesitar()
-			//setInterval(this.calesitar, 5000)
-			//this.initiateStoreHours()
-			//const view = this.schedule.open ? 'menu' : 'closed'
-			//this.setView(view)
+			await this.populateClient()
+			this.calesitar()
+			setInterval(this.calesitar, 5000)
+			this.initiateStoreHours()
+			const view = this.schedule.open ? 'menu' : 'closed'
+			this.setView(view)
+			this.ready = true
 			//stripe.start()
 		}
 	},
