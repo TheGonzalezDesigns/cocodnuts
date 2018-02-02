@@ -3,6 +3,7 @@ html(lang="en")
 	include struct/head.pug
 	body
 		#app
+<<<<<<< HEAD
 			#all(:class='{displayFlex: ready}')
 				include components/header
 				main
@@ -10,5 +11,12 @@ html(lang="en")
 					include components/body/checkout
 					include components/body/closed
 			include components/loader
+=======
+			include components/header
+			main
+				include components/body/menu
+				include components/body/checkout
+				include components/body/closed
+>>>>>>> ee33a9e3523534037498b322961a46bb58aaa4c9
 		include components/attributions
 		script(src="https://js.stripe.com/v3/")

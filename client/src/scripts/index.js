@@ -143,6 +143,7 @@ const vm = new Vue({
 			await this.getSchedule()
 			this.compareHours()
 			console.log('Finishing Store Hours')
+<<<<<<< HEAD
 		},
 		togglePane(view = '') {
 			if (view.length) {
@@ -150,10 +151,13 @@ const vm = new Vue({
 				this.closed = true
 			} else this.closed = false
 			console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
+=======
+>>>>>>> ee33a9e3523534037498b322961a46bb58aaa4c9
 		}
 	},
 	computed: {
 		async start() {
+<<<<<<< HEAD
 			await this.populateClient()
 			this.calesitar()
 			setInterval(this.calesitar, 5000)
@@ -161,6 +165,15 @@ const vm = new Vue({
 			const view = this.schedule.open ? 'menu' : 'closed'
 			this.setView(view)
 			this.ready = true
+=======
+			//await this.populateClient()
+			//this.calesitar()
+			//setInterval(this.calesitar, 5000)
+			//this.initiateStoreHours()
+			//const view = this.schedule.open ? 'menu' : 'closed'
+			//this.setView(view)
+			//stripe.start()
+>>>>>>> ee33a9e3523534037498b322961a46bb58aaa4c9
 		}
 	},
 	mounted() {
