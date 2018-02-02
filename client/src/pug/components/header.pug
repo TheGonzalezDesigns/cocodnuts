@@ -1,15 +1,8 @@
 header(:class="{closed: closed, open: !closed}")
 	.about
-<<<<<<< HEAD
 		.adress 7161 Lindley Ave Reseda 91335
 		.schedule Open {{schedule.freindly.opening}} to {{schedule.freindly.closing}}
 	.name(@click=`togglePane('menu')`) Coco D' Nuts
-=======
-		h2.adress 7161 Lindley Ave Ste 100 Reseda, CA 91335
-		hr
-		h2.schedule Open {{schedule.freindly.opening}} to {{schedule.freindly.closing}}
-	h1.name(@click=`setView('menu')`) Coco D' Nuts
->>>>>>> ee33a9e3523534037498b322961a46bb58aaa4c9
 	.badges
 		#checkoutButton(@click='togglePane("checkout")')
 			.icon.shoppingBag(:title="order.total")
