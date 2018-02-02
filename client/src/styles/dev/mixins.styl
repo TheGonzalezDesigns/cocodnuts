@@ -63,8 +63,9 @@ srcsets(src, sets, width, height, wane = 0)
 	genLan(src, sets, width)
 	genPor(src, sets, height)
 genH(min, max, unit = 'rem')
-	for i in (1..6)
-		rate = (i - 1) * 1/6
+	range = 14
+	for i in (1..range)
+		rate = (i - 1) * 1/range
 		max -= max * rate
 		min -= min * rate
 		max = unit(max, unit)

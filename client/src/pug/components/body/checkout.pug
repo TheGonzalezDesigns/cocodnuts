@@ -8,3 +8,4 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 	form#payment-form
 		.control
 			stripe
+	button.delete.is-large(@click='togglePane("menu")')

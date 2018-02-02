@@ -29,11 +29,18 @@ const vm = new Vue({
 			}
 		},
 		order: {
-			total: 0
+			total: 0,
+			list: {},
+			quantity: 0,
+			price: 0
 		},
 		view: '',
 		total: 0,
-		ready: false
+		email: '',
+		intervals: [],
+		orderQuantity: 0,
+		ready: false,
+		closed: true
 	},
 	methods: {
 		updatePopular() {
@@ -136,10 +143,14 @@ const vm = new Vue({
 			await this.getSchedule()
 			this.compareHours()
 			console.log('Finishing Store Hours')
+		},
+		togglePane(view = '') {
+			if (view.length) {
+				this.setView(view)
+				this.closed = true
+			} else this.closed = false
+			console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
 		}
-	},
-	watch: {
-
 	},
 	computed: {
 		async start() {
@@ -150,7 +161,6 @@ const vm = new Vue({
 			const view = this.schedule.open ? 'menu' : 'closed'
 			this.setView(view)
 			this.ready = true
-			//stripe.start()
 		}
 	},
 	mounted() {

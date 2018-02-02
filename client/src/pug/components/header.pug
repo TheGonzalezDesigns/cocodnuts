@@ -1,12 +1,12 @@
-header
+header(:class="{closed: closed, open: !closed}")
 	.about
-		h2.adress 7161 Lindley Ave Ste 100 Reseda, CA 91335
-		hr
-		h2.schedule Open {{schedule.freindly.opening}} to {{schedule.freindly.closing}}
-	h1.name(@click=`setView('menu')`) Coco D' Nuts
+		.adress 7161 Lindley Ave Reseda 91335
+		.schedule Open {{schedule.freindly.opening}} to {{schedule.freindly.closing}}
+	.name(@click=`togglePane('menu')`) Coco D' Nuts
 	.badges
-		#checkoutButton(@click=`setView('checkout')`)
+		#checkoutButton(@click='togglePane("checkout")')
 			.icon.shoppingBag(:title="order.total")
 			.subtext Complete Order
 		.socialMedia
 			a.icon.yelp(href="https://www.yelp.com/biz/coco-d-nuts-reseda" title="Yelp" target="_blank")
+	button.delete.is-large(@click='togglePane("menu")')

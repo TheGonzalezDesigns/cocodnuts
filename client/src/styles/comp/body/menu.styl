@@ -2,35 +2,39 @@
 pattern = url("data:image/svg+xml,%3Csvg width='40' height='1' viewBox='0 0 40 1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v1H0z' fill='%23f7faf9' fill-opacity='0' fill-rule='evenodd'/%3E%3C/svg%3E")
 
 #menu
-	//highlight()
 	@extend .flex-seconds
-	display flex
-	align-content stretch
-	align-items stretch
-	justify-content flex-start
-	flex-direction column
-	background-image  pattern
-	li
-		@extend .h1
-		@extend .pop
-		padding-left 5vmin
-		flex-grow 1
-		align-items center
+	ul
 		display flex
-		@extend .text-shadow
-		font-family: 'Fredericka The Great'
-		@extend .transition
-		text-transform capitalize
-		&:nth-of-type(2n+1)
-			background: p.c
-			background: linear-gradient(to right, rgba(@background, 0.125), @background 5%, rgba(@background, 0.125))
-			color: p.a
-		&:nth-of-type(2n+2)
-			background: lighten(p.c, 50%)
-			background: linear-gradient(to right, rgba(@background, 0.25), @background 5%, rgba(@background, 0.25))
-			color: lighten(p.a, 50%)
-		&:hover
-		&:active
-			color: lighten(p.c, 50%)
-			background: lighten(p.a, 50%)
-			background: linear-gradient(to right, lighten(@background, 10%), @background 5%, rgba(@background, 0.25))
+		align-content stretch
+		align-items stretch
+		justify-content flex-start
+		flex-direction column
+		overflow auto
+		height 100%
+		li
+			@extend .h1
+			@extend .pop
+			padding-left 5vmin
+			flex-grow 1
+			align-items center
+			display flex
+			@extend .text-shadow
+			font-family: 'Fredericka The Great'
+			@extend .transition
+			text-transform capitalize
+			min-height 10vh
+			&:nth-of-type(2n+1)
+				background: p.c
+				background: linear-gradient(to right, rgba(@background, 0.125), @background 5%, rgba(@background, 0.125))
+				color: p.a
+			&:nth-of-type(2n+2)
+				background: lighten(p.c, 50%)
+				background: linear-gradient(to right, rgba(@background, 0.25), @background 5%, rgba(@background, 0.25))
+				color: lighten(p.a, 50%)
+			&:hover
+			&:active
+				color: lighten(p.c, 50%)
+				background: lighten(p.a, 50%)
+				background: linear-gradient(to right, lighten(@background, 10%), @background 5%, rgba(@background, 0.25))
+			@media all and (orientation: portrait)
+				text-align center

@@ -1,5 +1,5 @@
-@import 'var.styl'
-@import 'mixins.styl'
+@require 'var.styl'
+@require 'mixins.styl'
 
 .flex-thirds
 	flex-basis calc(100%/3)
@@ -11,7 +11,7 @@
 	background-repeat no-repeat no-repeat
 	background-size cover
 .transition
-	transition all 0.2s ease-in-out-circ
+	transition all 0.4s ease-in-out-circ
 	cursor pointer
 .pop
 	@extend .transition
@@ -25,14 +25,9 @@
 	align-items center
 	cursor pointer
 	@extend .pop
-	&:hover
-	&:active
-		background: lighten(rgba(p.a, 0.7), 95%)
-		border-radius 1vmin
-		opacity 1 !important
 .text-shadow
 	text-shadow: 0.1rem 0.1rem 2px p.b
-genH(0.75, 2.85)
+genH(0.5, 5)
 .caveat
 	font-family caveat
 	text-transform capitalize
@@ -88,3 +83,47 @@ genH(0.75, 2.85)
 	display initial
 .displayFlex
 	display flex !important
+.Merienda-Red
+	color: lighten(#DED4B6, 40%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #F75C66
+	font-family 'Merienda One'
+.Merienda-Green
+	color: lighten(#DED4B6, 40%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #5FB392
+	font-family 'Merienda One'
+.Merienda-Yellow
+	color lighten(#DB9B35, 85%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #DB9B35
+	font-weight 100
+	font-family 'Merienda One'
+.border-radius
+	border-radius 10px
+.backgroundSpecial
+	background-color #574444
+	background-image: linear-gradient(45deg, darken(mix(#614C4C, Colores.Jaune.Soleil), 10%), lighten(mix(#DED4B6, Colores.Jaune.Soleil), 40%)), url(pattern)
+	background-blend-mode overlay
+	box-shadow 0.1vmax 0.1vmax 1vmax lighten(#222, 15%)
+	@extend .border-radius
+.text
+	margin-bottom 0.2vmin
+	letter-spacing 0.05rem
+	text-align center
+.donut
+	srcsets('../graphics/DonutBeach.jpg', 1, 3320, 2250)
+	@extend .background
+.portrait
+	@media all and (orientation: landscape)
+		display none !important
+	@media all and (orientation: portrait)
+		display flex !important
+.delete
+	position absolute
+	top 1.5rem
+	left @top
+	background: rgba(p.e, 0.9)
+	@extend.portrait
+	@extend .transition
+	&:hover
+	&:active
+		transform scale(1.5) rotate(-360deg)
+		background: rgba(darken(p.e, 75%), 0.85)

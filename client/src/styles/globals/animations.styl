@@ -5,27 +5,30 @@ name = 'fade'
 .{name}-enter-active
 .{name}-leave-active
 	@extend .transition
+	//transition-duration 0.5s
 	opacity 1
+	filter blur(0)
+	transform scale(1) translateZ(0%)
 .{name}-enter
 .{name}-leave-to
 	opacity 0
-name = 'fadeInLeft'
-.{name}-enter-active
-.{name}-leave-active
+	filter blur(100px)
+	transform scale(0.5) translateZ(100%)
+.hideLeft
+.hideRight
 	@extend .transition
-	opacity 1
-	transform translateX(0%)
-.{name}-enter
-.{name}-leave-to
 	opacity 0
+	filter blur(100px)
+	position absolute
+.hideLeft
 	transform translateX(-100%)
-name = 'fadeInRight'
-.{name}-enter-active
-.{name}-leave-active
+	filter blur(100px)
+.hideRight
+	transform translateX(100%)
+.showLeft
+.showRight
+	position relative
 	@extend .transition
 	opacity 1
-	transform translateX(0%)
-.{name}-enter
-.{name}-leave-to
-	opacity 0
-	transform translateX(100%)
+	filter blur(0)
+	transform translateX(0)

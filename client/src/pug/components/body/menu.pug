@@ -1,22 +1,21 @@
 - menu = 'food.menu.'
-- condition = "view === 'menu'"
-transition(name='fade' v-if=condition): ul#menu
+- condition = "ready && view === 'menu'"
+#menu(:class=`{hideRight: !(${condition}), showRight: ${condition}}`): transition-group(name='fade' tag='ul')
 	- displaying = menu + 'displaying'
 	- categories = menu + 'categories'
 	- preview = menu + 'preview'
-	transition(name=`fade` v-if=`${displaying}.length`)
-		li(@click=`${displaying} = []`) Go Back
-	transition(name=`fade` v-for=`category in ${categories}`)
-		li(@click=`selectList(category)` v-if=`${displaying}.length == 0`) {{category}}
-	transition(name=`fade` v-for=`item in ${displaying}`)
-		li(@click=`${preview} = item`) {{item.name}}
-transition(name='fade' v-if=condition): #preview
+	li.portrait(@click=`setView('checkout')` :key='1' v-if=`!${displaying}.length && order.quantity`) Complete Order
+	li.portrait(@click='togglePane()' :key='2' v-if=`!${displaying}.length`) Adress, Schedule and more...
+	li(@click=`${displaying} = []` :key='3' v-if=`${displaying}.length`) Go Back
+	li(@click=`selectList(category)` v-for=`category in ${categories}` v-if=`${displaying}.length == 0` :key='category') {{category}}
+	li(@click=`${preview} = item` v-for=`item in ${displaying}` :key='item.name') {{item.name}}
+#preview(:class=`{hideLeft: !(${condition}), showLeft: ${condition}}`)
 	.item
 		- preview = menu + 'preview.'
 		.photo: img(:src=`${preview}photo`)
 		.content
-			h1.name=`{{${preview}name}}`
-			h2.price=`{{${preview}price}}`
-			pre.description=`{{${preview}description}}`
-			hr
-			h4.category(@click="addOrder(food.menu.preview)") Add to order
+			.name=`{{${preview}name}}`
+			transition(name="fade" v-if='view !== "menu"'): .price=`{{${preview}price}}`
+			transition(name="fade" v-if='view !== "menu"'): .description=`{{${preview}description}}`
+			transition(name="fade" v-if='view === "menu"'): .direction Click to order
+			transition(name="fade" v-if=`!${displaying}.length`): .category=`{{${preview}category}}`

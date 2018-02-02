@@ -7,20 +7,13 @@ f = rgba(p.c, 0)
 header
 	//srcsets('../graphics/lightpaperfibers.png', 5, 500, 300, 4), url()
 	//background: rgba(p.c, 0.5)
-	background-image: linear-gradient(90deg, b, b, b, b, a, b, c, f, f)
 	max-width 100vw
 	flex-direction row
 	display flex
-	flex-basis 10%
+	flex-basis 20%
 	flex-grow 1
 	justify-content space-around
 	align-items stretch
-	&:hover
-		.adress
-		.name
-		#checkoutButton
-		.socialMedia
-			opacity 0.5
 	.name
 		font-family 'Nothing You Could Do'
 		@extend .h1
@@ -32,14 +25,15 @@ header
 		@extend .headSectHov
 	.about
 		font-family Pompiere
-		@extend .h3
+		@extend .h5
 		shade()
 		highlight()
 		@extend .flex-thirds
 		@extend .headSectHov
 		flex-direction column
-		hr
-			margin 1vh 0
+		.schedule
+		.adress
+			@extend .text
 	.badges
 		highlight()
 		@extend .flex-thirds
@@ -67,7 +61,7 @@ header
 				bottom  0
 				right 0
 				line-height 50%
-				@extend .h2
+				@extend .h4
 		#checkoutButton
 			highlight()
 			@extend .flex-seconds
@@ -75,10 +69,61 @@ header
 			@extend .caveat
 			flex-direction column
 			.subtext
-				@extend .h2
+				@extend .h4
 		.socialMedia
 			highlight()
 			@extend .flex-seconds
 			@extend .headSectHov
 			height 100%
 			justify-content center
+	@media all and (orientation: landscape)
+		background-image: linear-gradient(90deg, b, b, b, b, a, b, c, f, f)
+	@media all and (orientation: portrait)
+		@extend .expand
+		flex-direction column
+		position absolute
+		z-index 100
+		@extend .center
+		@extend .donut
+		.name
+		.about
+		.badges
+			background: rgba(lighten(p.c, 45%), 0.85)
+			background-image: url(pattern)
+			background-blend-mode overlay
+			background-size 2em
+			border-radius 100%
+			width 35vmax
+			height auto
+			margin auto
+			@extend .transition
+			&:hover
+			&:active
+				background-blend-mode hard-light
+		.badges
+			flex-direction column
+			@extend .center
+			order 2
+			.yelp
+			#checkoutButton
+				@extend .center-self
+		.name
+			order 1
+		.about
+			order 3
+.closed
+	@extend .transition
+	@media all and (orientation: portrait)
+		transform translateX(100%)
+		opacity 0
+		filter blur(10px)
+	@media all and (orientation: landscape)
+		transform translateX(0)
+.open
+	@extend .transition
+	@media all and (orientation: portrait)
+		transform translateX(0)
+		opacity 1
+		filter blur(0px)
+	@media all and (orientation: landscape)
+		transform translateX(0)
