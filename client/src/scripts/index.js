@@ -1,10 +1,8 @@
-/*eslint no-unused-vars: ["warn", { "vars": "local" },]*/
-/*global styles*/
-/*global global*/
 import styles from './styles'
 import Vue from 'vue'
 import stripe from './api/stripe'
 import router from './network/router'
+import {InvervalTimer} from './chrona'
 
 const vm = new Vue({
 	el: '#app',
@@ -32,15 +30,17 @@ const vm = new Vue({
 			total: 0,
 			list: {},
 			quantity: 0,
-			price: 0
+			price: 0,
+			open: false
 		},
 		view: '',
 		total: 0,
 		email: '',
-		intervals: [],
+		interval: 0,
 		orderQuantity: 0,
 		ready: false,
-		closed: true
+		closed: true,
+		cycle: 0
 	},
 	methods: {
 		updatePopular() {
@@ -75,6 +75,14 @@ const vm = new Vue({
 			this.food.menu.displaying = this.food.menu.lists[category]
 			this.calesitar()
 		},
+		selectItem(item) {
+			this.food.menu.preview = item
+			this.pause()
+		},
+		goBack() {
+			this.food.menu.displaying = []
+			this.resume()
+		},
 		calesitar() {
 			const list = this.food.menu.displaying.length ? this.food.menu.displaying : this.food.menu.items
 			const max = list.length - 1
@@ -104,8 +112,9 @@ const vm = new Vue({
 			}
 		},
 		setView(view) {
-			console.log('Setting view to ', view)
+			//console.log('Setting view to ', view)
 			this.view = view
+
 		},
 		async getSchedule() {
 			const date = await router.requestDate()
@@ -125,7 +134,7 @@ const vm = new Vue({
 		},
 		compareHours() {
 			const date = new Date()
-			const now = date.date.toTimeString().slice(0, 5)
+			const now = date.toTimeString().slice(0, 5)
 			const convertTime = (string) => {
 				const parse = (string, a, b) => parseFloat(string.slice(a, b))
 				const hours = parse(string, 0, 2) * 60
@@ -139,24 +148,65 @@ const vm = new Vue({
 			this.schedule.open = (currently >= opening) && (currently < closing)
 		},
 		async initiateStoreHours() {
-			console.log('Initiating Store Hours')
+			//console.log('Initiating Store Hours')
 			await this.getSchedule()
 			this.compareHours()
-			console.log('Finishing Store Hours')
+			//console.log('Finishing Store Hours')
 		},
 		togglePane(view = '') {
 			if (view.length) {
 				this.setView(view)
 				this.closed = true
 			} else this.closed = false
-			console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
-		}
+			//console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
+		},
+		toggleOrder() {
+			this.order.open = !this.order.open
+		},
+		loop() {
+			//setInterval(this.calesitar, 5000)
+			this.cycle = new InvervalTimer(this.calesitar, 5000)
+			console.log(this.cycle)
+		},
+		pause() {
+			this.cycle.pause()
+		},
+		resume() {
+			this.cycle.resume()
+		},
+		charge() {
+			const data = this.food.menu.preview
+			return this.orderQuantity * data.price
+		},
+		submitItem() {
+			const data = this.food.menu.preview
+			const item = {
+				name: data.name,
+				orderQuantity: data.quantity,
+				charge: this.charge(),
+				price: data.price
+			}
+			if (item.orderQuantity > 0) {
+				this.order.list[item.name] = item
+				let orderQuantity = 0
+				let total = 0
+				for (let item in this.order.list) {
+					orderQuantity += this.order.list[item].orderQuantity
+					total += this.order.list[item].price
+				}
+				this.order.total = orderQuantity * total
+				this.order.quantity = orderQuantity
+				console.log('Total:', this.order.total)
+				console.log('orderQuantity:', this.order.quantity)
+				console.log(item)
+			}
+		},
 	},
 	computed: {
 		async start() {
 			await this.populateClient()
 			this.calesitar()
-			setInterval(this.calesitar, 5000)
+			this.loop()
 			this.initiateStoreHours()
 			const view = this.schedule.open ? 'menu' : 'closed'
 			this.setView(view)
@@ -167,6 +217,27 @@ const vm = new Vue({
 		this.$nextTick(() => {
 			vm.start()
 		})
+	},
+	filters: {
+		round(value) {
+			return Math.round(value * 100)/100
+		},
+		quantize(value) {
+			const quantity = parseFloat(vm.food.menu.preview.quantity)
+			return quantity > 0 ? value * quantity : value
+		},
+		sign(value) {
+			const quantity = parseFloat(vm.food.menu.preview.quantity)
+			const price = vm.food.menu.preview.price
+			const sign = price * quantity < 1 ? '¢' : '$'
+			return `${sign}${value}`
+		},
+		stringify(value) {
+			const quantity = parseFloat(vm.food.menu.preview.quantity)
+			const price = vm.food.menu.preview.price
+			const msg = quantity > 0 ? 'Your amount' : 'Original Price'
+			return `${msg}: ${value}`
+		}
 	}
 })
 global.vm = vm //For debugging only
