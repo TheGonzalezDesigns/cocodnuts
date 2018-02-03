@@ -14,7 +14,7 @@ const vm = new Vue({
 				lists: [],
 				displaying: [],
 				popular: [],
-				preview: {},
+				preview: {}
 			}
 		},
 		schedule: {
@@ -33,11 +33,11 @@ const vm = new Vue({
 			price: 0,
 			open: false
 		},
+		selected: {},
 		view: '',
 		total: 0,
 		email: '',
 		interval: 0,
-		orderQuantity: 0,
 		ready: false,
 		closed: true,
 		cycle: 0
@@ -75,9 +75,13 @@ const vm = new Vue({
 			this.food.menu.displaying = this.food.menu.lists[category]
 			this.calesitar()
 		},
-		selectItem(item) {
+		setPreview(item) {
 			this.food.menu.preview = item
+		},
+		selectItem() {
+			this.selected = this.food.menu.preview
 			this.pause()
+			this.toggleOrder()
 		},
 		goBack() {
 			this.food.menu.displaying = []
@@ -89,27 +93,6 @@ const vm = new Vue({
 			const index = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
 			const data = list[index(max)]
 			this.food.menu.preview = data
-		},
-		addOrder(item) {
-			let order = this.order[item.name]
-			let data = item
-			if (!order) {
-				data = {
-					name: data.name,
-					price: data.price,
-					quantity: 0
-				}
-				order = data
-			}
-			order.quantity += 1
-			this.order.total += 1
-			this.total += order.price
-		},
-		removeOrder(item) {
-			let order = this.order[item.name]
-			if (order) {
-				order.quantity -= order.quantity ? 1 : 0
-			}
 		},
 		setView(view) {
 			//console.log('Setting view to ', view)
@@ -170,36 +153,35 @@ const vm = new Vue({
 		},
 		pause() {
 			this.cycle.pause()
+			console.log('Currently paused...')
 		},
 		resume() {
 			this.cycle.resume()
+			console.log('Currently resumed...')
 		},
-		charge() {
-			const data = this.food.menu.preview
-			return this.orderQuantity * data.price
+		calculateTotal() {
+			let quantity = 0
+			let total = 0
+			for (let item in this.order.list) {
+				quantity += this.order.list[item].quantity
+				total += this.order.list[item].total
+			}
+			this.order.total = total
+			this.order.quantity = quantity
 		},
 		submitItem() {
-			const data = this.food.menu.preview
+			const data = this.selected
+			const total = Math.floor(data.price * data.quantity * 100)/100
 			const item = {
 				name: data.name,
-				orderQuantity: data.quantity,
-				charge: this.charge(),
-				price: data.price
+				quantity: data.quantity,
+				price: data.price,
+				total: total,
 			}
-			if (item.orderQuantity > 0) {
-				this.order.list[item.name] = item
-				let orderQuantity = 0
-				let total = 0
-				for (let item in this.order.list) {
-					orderQuantity += this.order.list[item].orderQuantity
-					total += this.order.list[item].price
-				}
-				this.order.total = orderQuantity * total
-				this.order.quantity = orderQuantity
-				console.log('Total:', this.order.total)
-				console.log('orderQuantity:', this.order.quantity)
-				console.log(item)
-			}
+			console.log(`${item.name}\n\t${item.quantity} X ${item.price} = ${item.total}`)
+			if (item.quantity > 0) this.order.list[item.name] = item
+			else if (this.order.list[item.name]) delete this.order.list[item.name]
+			this.calculateTotal()
 		},
 	},
 	computed: {
@@ -220,21 +202,16 @@ const vm = new Vue({
 	},
 	filters: {
 		round(value) {
-			return Math.round(value * 100)/100
+			return Math.floor(value * 100)/100
 		},
-		quantize(value) {
-			const quantity = parseFloat(vm.food.menu.preview.quantity)
+		quantize(value, quantity) {
 			return quantity > 0 ? value * quantity : value
 		},
 		sign(value) {
-			const quantity = parseFloat(vm.food.menu.preview.quantity)
-			const price = vm.food.menu.preview.price
-			const sign = price * quantity < 1 ? '¢' : '$'
+			const sign = value < 1 ? value > 0 ? '¢' : '' : '$'
 			return `${sign}${value}`
 		},
-		stringify(value) {
-			const quantity = parseFloat(vm.food.menu.preview.quantity)
-			const price = vm.food.menu.preview.price
+		stringify(value, quantity) {
 			const msg = quantity > 0 ? 'Your amount' : 'Original Price'
 			return `${msg}: ${value}`
 		}
