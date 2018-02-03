@@ -1,11 +1,24 @@
 transition(name='fade' v-if=`view === 'checkout'`): #checkout
-	.field.is-grouped.is-grouped-centered
-		.control(style='text-align: center')
-			p.help Checkout
-			p.help
-				| Your Total:
-				span ${{total}}
-	form#payment-form
-		.control
-			stripe
+	//form#payment-form
+		.form-row
+			label(for="card-element")
+				#card-element
+				//input(for='item in hidden_data' type='hidden' :name='item.name' :value='item.value')
+		#card-errors(role="alert")
+		input.button.is-success(type="submit")
+	#receipt: ul
+		li.h1 Your Order
+		li(v-for="item in order.list")
+			.name {{item.name}}
+			.total 
+				| {{item.orderQuantity}}
+				| x
+				| {{item.price}}
+				| =
+				| {{(item.price * item.orderQuantity) | quantize | round | sign}}
+		li.seperate
+				.name Your total
+				.total {{1278.0931 | quantize | round | sign}}
+		li.seperate
+			input.button.is-success(type="submit")
 	button.delete.is-large(@click='togglePane("menu")')
