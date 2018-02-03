@@ -6,16 +6,15 @@
 	- preview = menu + 'preview'
 	li.portrait(@click=`setView('checkout')` :key='1' v-if=`!${displaying}.length && order.quantity`) Complete Order
 	li.portrait(@click='togglePane()' :key='2' v-if=`!${displaying}.length`) Adress, Schedule and more...
-	li(@click=`${displaying} = []` :key='3' v-if=`${displaying}.length`) Go Back
+	li(@click='goBack()' :key='3' v-if=`${displaying}.length`) Go Back
 	li(@click=`selectList(category)` v-for=`category in ${categories}` v-if=`${displaying}.length == 0` :key='category') {{category}}
-	li(@click=`${preview} = item` v-for=`item in ${displaying}` :key='item.name') {{item.name}}
+	li(@click='selectItem(item)' v-for=`item in ${displaying}` :key='item.name') {{item.name}}
 #preview(:class=`{hideLeft: !(${condition}), showLeft: ${condition}}`)
-	.item
+	.item(@click="toggleOrder() || pause()")
 		- preview = menu + 'preview.'
 		.photo: img(:src=`${preview}photo`)
 		.content
 			.name=`{{${preview}name}}`
 			transition(name="fade" v-if='view !== "menu"'): .price=`{{${preview}price}}`
-			transition(name="fade" v-if='view !== "menu"'): .description=`{{${preview}description}}`
 			transition(name="fade" v-if='view === "menu"'): .direction Click to order
 			transition(name="fade" v-if=`!${displaying}.length`): .category=`{{${preview}category}}`
