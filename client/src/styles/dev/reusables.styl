@@ -83,34 +83,48 @@ genH(0.5, 5)
 	display initial
 .displayFlex
 	display flex !important
-.Merienda-Red
-	color: lighten(#DED4B6, 40%)
-	text-shadow 0.1vmax 0.1vmax 0.1vmax #F75C66
-	font-family 'Merienda One'
-.Merienda-Green
-	color: lighten(#DED4B6, 40%)
-	text-shadow 0.1vmax 0.1vmax 0.1vmax #5FB392
-	font-family 'Merienda One'
-.Merienda-Yellow
-	color lighten(#DB9B35, 85%)
-	text-shadow 0.1vmax 0.1vmax 0.1vmax #DB9B35
-	font-weight 100
-	font-family 'Merienda One'
-.border-radius
-	border-radius 10px
-.backgroundSpecial
-	background-color #574444
-	background-image: linear-gradient(45deg, darken(mix(#614C4C, Colores.Jaune.Soleil), 10%), lighten(mix(#DED4B6, Colores.Jaune.Soleil), 40%)), url(pattern)
-	background-blend-mode overlay
-	box-shadow 0.1vmax 0.1vmax 1vmax lighten(#222, 15%)
-	@extend .border-radius
 .text
 	margin-bottom 0.2vmin
 	letter-spacing 0.05rem
+	line-height 1.5
 	text-align center
+	text-transform capitalize
+	overflow-wrap break-word
+	word-wrap break-word
+	hyphens auto
+.Merienda
+	font-family 'Merienda One'
+	@extend .text
+.Merienda-Red
+	color: lighten(#DED4B6, 40%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #F75C66, 0.2vmax 0.2vmax 0.1vmax lighten(rgba(#1A382C, 0.9), 25%), 0.2vmax 0.3vmax 0.1vmax rgba(lighten(#1A382C, 95%), 0.5)
+	font-weight 100
+	@extend .Merienda
+.Merienda-Green
+	color: lighten(#DED4B6, 40%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #5FB392, 0.2vmax 0.2vmax 0.1vmax lighten(rgba(#1A382C, 0.9), 25%), 0.2vmax 0.3vmax 0.1vmax rgba(lighten(#1A382C, 95%), 0.5)
+	font-weight 100
+	@extend .Merienda
+.Merienda-Yellow
+	color lighten(#DB9B35, 85%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax darken(#DB9B35, 10%), 0.2vmax 0.2vmax 0.1vmax lighten(rgba(#1A382C, 0.9), 25%), 0.2vmax 0.3vmax 0.1vmax rgba(lighten(#1A382C, 95%), 0.5)
+	font-weight 100
+	@extend .Merienda
+.Merienda-Black
+	color lighten(#DB9B35, 85%)
+	text-shadow 0.1vmax 0.1vmax 0.1vmax #1A382C
+	font-weight 100
+	@extend .Merienda
+.border-radius
+	border-radius 10px
 .donut
 	srcsets('../graphics/DonutBeach.jpg', 1, 3320, 2250)
 	@extend .background
+.backgroundSpecial
+	@extend .donut
+	@extend .background
+	box-shadow 0.1vmax 0.1vmax 1vmax lighten(#222, 15%)
+	@extend .border-radius
 .portrait
 	@media all and (orientation: landscape)
 		display none !important
@@ -127,3 +141,14 @@ genH(0.5, 5)
 	&:active
 		transform scale(1.5) rotate(-360deg)
 		background: rgba(darken(p.e, 75%), 0.85)
+.button
+	@extend .text
+	@extend .background
+	background-image url(pattern)
+	@extend .h4
+.is-danger
+	@extend .Merienda-Red
+.is-success
+	@extend .Merienda-Green
+.padding
+	padding 2vmax
