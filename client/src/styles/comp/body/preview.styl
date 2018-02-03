@@ -11,16 +11,19 @@
 	flex-direction column
 	.item
 		max-width 75%
-		max-height 95%
+		max-height 100%
 		@extend .backgroundSpecial
 		position relative
 		@extend .border-radius
 		flex-direction column
 		transform rotate(.5deg)
+		opacity 0.9
 		.photo
 			width auto
 			margin 0
 			padding 0
+			margin-bottom -0.5vmin
+			padding 0n
 			img
 				width auto
 				height 100%
@@ -79,9 +82,13 @@
 				@extend .center
 				.content
 					position absolute
-					@extend .backgroundSpecial
-					padding 2vmin
+					gradient(rgba(darken(p.a, 60%), 0.2))
+					border-radius 10px
+					padding 2.5vmin
 					@extend .center-self
+					opacity 0.95
+					clip-path polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)
+					transform scale(1.45)
 			.item
 			.photo
 			img
