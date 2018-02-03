@@ -11,14 +11,14 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 		li(v-for="item in order.list")
 			.name {{item.name}}
 			.total 
-				| {{item.orderQuantity}}
+				| {{item.quantity}}
 				| x
 				| {{item.price}}
 				| =
-				| {{(item.price * item.orderQuantity) | quantize | round | sign}}
+				| {{item.total | sign}}
 		li.seperate
 				.name Your total
-				.total {{1278.0931 | quantize | round | sign}}
+				.total {{order.total | sign}}
 		li.seperate
 			input.button.is-success(type="submit")
 	button.delete.is-large(@click='togglePane("menu")')
