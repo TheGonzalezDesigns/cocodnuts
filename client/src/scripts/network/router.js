@@ -1,4 +1,3 @@
-/*global exports*/
 import axios from 'axios'
 
 let client = axios.create({

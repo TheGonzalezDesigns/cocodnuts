@@ -29,5 +29,11 @@
         ],
 		"no-unused-vars": 1,
 		"no-console": 1
+	},
+	"globals": {
+			"exports": true,
+			"styles": true,
+			"global": true,
+			"stripe": true
 	}
 }
