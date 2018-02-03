@@ -12,6 +12,7 @@ pattern = url("data:image/svg+xml,%3Csvg width='40' height='1' viewBox='0 0 40 1
 		overflow auto
 		height 100%
 		li
+			cursor pointer
 			@extend .h1
 			@extend .pop
 			padding-left 5vmin
@@ -38,3 +39,5 @@ pattern = url("data:image/svg+xml,%3Csvg width='40' height='1' viewBox='0 0 40 1
 				background: linear-gradient(to right, lighten(@background, 10%), @background 5%, rgba(@background, 0.25))
 			@media all and (orientation: portrait)
 				text-align center
+		@media all and (orientation: portrait)
+			max-height 50vh
