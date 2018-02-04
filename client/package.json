@@ -1,5 +1,8 @@
 {
 	"name": "client",
+	"version": "1.0.0",
+	"description": "",
+	"main": "webpack.config.js",
 	"scripts": {
 		"start": "npx webpack --progress",
 		"dev": "webpack -w --progress",
@@ -11,6 +14,7 @@
 		"bulma.styl": "^0.6.11",
 		"express": "^4.16.2",
 		"normalize": "^0.3.1",
+		"sane-email-validation": "^1.1.0",
 		"stripe": "^5.4.0",
 		"vue": "^2.5.13",
 		"vue-stripe-elements": "^0.2.3",
@@ -37,16 +41,20 @@
 		"html-webpack-plugin": "^2.30.1",
 		"html-webpack-template-pug": "^1.1.1",
 		"jimp": "^0.2.28",
+		"optimize-css-assets-webpack-plugin": "^3.2.0",
 		"poststylus": "^1.0.0",
 		"pug": "^2.0.0-rc.4",
 		"pug-loader": "^2.3.0",
 		"responsive-loader": "^1.1.0",
 		"rucksack-css": "^1.0.2",
+		"sharp": "^0.19.0",
 		"style-loader": "^0.19.1",
 		"stylus": "^0.54.5",
 		"stylus-loader": "^3.0.1",
 		"uglifyjs-webpack-plugin": "^1.1.5",
 		"webpack": "^3.10.0",
 		"webpack-dev-server": "^2.9.7"
-	}
+	},
+	"author": "",
+	"license": "ISC"
 }
