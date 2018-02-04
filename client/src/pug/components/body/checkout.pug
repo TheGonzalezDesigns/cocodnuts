@@ -13,7 +13,7 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 			li.seperate
 					.name Your total
 					.total {{order.total | sign}}
-			li(:class="{hideRight: !created, showRight: created}")
+			li(:class="{hideRight: (!created || paymentSuccess === 1), showRight: (created && paymentSuccess !== 1)}")
 				form#payment-form
 					label.label(for="card-element") 
 						|To recieve a receipt...
@@ -26,5 +26,6 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 					#card-errors.errors(role="alert") {{errorMessage}}
 					transition(v-if='created' name="fade"):  input#stripeButton.button.is-success(type="submit" disabled="true" @click="charge()")
 			transition(name="fade" v-if='!created'): li.serprate: input.button.is-success(type="submit" @click="create()" value="This is correct!")
+			transition(name="fade" v-if='paymentSuccess !== -1'): li.serprate: .errors(role="alert") {{postPaymentMsg}}
 		ul(v-if="!order.quantity"): li.h1 looks like you haven't ordered yet...
 	button.delete.is-large(@click='togglePane("menu") || recreate()')
