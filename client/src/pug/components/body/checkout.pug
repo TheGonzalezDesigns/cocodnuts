@@ -28,4 +28,4 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 			transition(name="fade" v-if='!created'): li.serprate: input.button.is-success(type="submit" @click="create()" value="This is correct!")
 			transition(name="fade" v-if='paymentSuccess !== -1'): li.serprate: .errors(role="alert") {{postPaymentMsg}}
 		ul(v-if="!order.quantity"): li.h1 looks like you haven't ordered yet...
-	button.delete.is-large(@click='togglePane("menu") || recreate()')
+	button.delete.is-large(@click='togglePane("menu") || recreate() || resetMessage()')
