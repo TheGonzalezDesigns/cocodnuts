@@ -46,7 +46,9 @@ const vm = new Vue({
 		card: false,
 		errorMessage: '',
 		emailErrors: '',
-		emailValid: false
+		emailValid: false,
+		paymentSuccess: -1,
+		postPaymentMsg: ''
 	},
 	methods: {
 		updateCategories() {
@@ -216,11 +218,19 @@ const vm = new Vue({
 		}
 	},
 	watch: {
-		token() {
-			if (this.token.id) router.charge(this.token.id, this.order, this.email)
+		async token() {
+			if (this.token.id) {
+				let res = await router.charge(this.token.id, this.order, this.email)
+				this.paymentSuccess = res ? 1 : 0
+				console.log(this.paymentSuccess)
+			}
 		},
 		email() {
 			this.checkEmail()
+		},
+		paymentSuccess() {
+			if (this.paymentSuccess === 0) this.postPaymentMsg = 'Charge didn\'t go through!'
+			if (this.paymentSuccess === 1) this.postPaymentMsg = 'Got it, just give us a minute!'
 		}
 	},
 	computed: {
