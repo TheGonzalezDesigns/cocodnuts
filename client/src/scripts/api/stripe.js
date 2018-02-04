@@ -1,55 +1,43 @@
-/*global exports */
-/*global Stripe */
-import {
-	Card,
-	createToken
-} from 'vue-stripe-elements-plus'
-import {
-	key,
-	style
-} from './stripeConfig.js'
-import Vue from 'vue'
-import axios from 'axios'
+/*global Stripe*/
+import {key, style} from './stripeConfig'
 
-const client = axios.create({
-	//baseUrl: 'cocodnuts.com'
-	proxy: {
-		host: '127.0.0.1',
-		port: 8080
-	}
-})
+exports.start = () => {
+	const stripe = Stripe(key)
+	const elements = stripe.elements()
 
-Vue.component('stripe', {
-	template: `
-	<div id='stripe'>
-		<card class='stripe-card'
-			:class='{ complete }'
-			stripe='${key}'
-			:options='stripeOptions'
-			@change='complete = $event.complete'
-    	/>
-		<label class="label"></label>
-    	<button class='pay-with-stripe button is-success' @click='pay' :disabled='!complete'> Place Order !</button>
-		<div id='card-errors' class='help'  role="alert"></div>
-	</div>`,
-	data() {
-		return {
-			complete: false,
-			stripeOptions: style
-		}
-	},
-	components: {
-		Card
-	},
-	methods: {
-		async pay() {
-			// createToken returns a Promise which resolves in a result object with
-			// either a token or an error key.
-			// See https://stripe.com/docs/api#tokens for the token object.
-			// See https://stripe.com/docs/api#errors for the error object.
-			// More general https://stripe.com/docs/stripe.js#stripe-create-token.
-			const token = await createToken()
-			client.post('/charge', token)
-		}
+	const card = elements.create('card', {style})
+
+	card.mount('#card-element')
+
+	card.addEventListener('change', ({error, complete}) => {
+		const displayError = document.getElementById('card-errors')
+		const stripeButton = document.getElementById('stripeButton')
+		displayError.textContent = error ? error.message : ''
+		if (error || !complete) stripeButton.disabled = true
+		if (complete) stripeButton.disabled = false
+	})
+
+	const stripeTokenHandler = (token) => {
+		const form = document.getElementById('payment-form')
+		const hiddenInput = document.createElement('input')
+		hiddenInput.setAttribute('type', 'hidden')
+		hiddenInput.setAttribute('name', 'stripeToken')
+		hiddenInput.setAttribute('value', token.id)
+		form.appendChild(hiddenInput)
+		//form.submit()
+		console.log('token', token)
 	}
-})
+	const form = document.getElementById('payment-form')
+	form.addEventListener('submit', async (event) => {
+		event.preventDefault()
+
+		const {token, error} = await stripe.createToken(card)
+
+		if (error) {
+			const errorElement = document.getElementById('card-errors')
+			errorElement.textContent = error.message
+		} else {
+			stripeTokenHandler(token)
+		}
+	})
+}
