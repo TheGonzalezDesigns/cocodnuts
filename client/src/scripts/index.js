@@ -197,23 +197,35 @@ const vm = new Vue({
 		recreate() {
 			this.created = false
 		},
+		disableButton() {
+			const stripeButton = document.getElementById('stripeButton')
+			stripeButton.disabled = true
+		},
 		async charge() {
 			const {token, error} = await stripe.createToken(vm.card)
 			if (error) this.errorMessage = error.message
 			else {
 				this.checkEmail()
-				if (this.emailValid) this.token = token
+				if (this.emailValid) {
+					this.disableButton()
+					this.token = token
+				}
 			}
 		},
 		checkEmail() {
-			const stripeButton = document.getElementById('stripeButton')
 			if (this.email.length) if (isNotEmail(this.email)) {
-				stripeButton.disabled = true
+				this.disableButton()
 				this.emailErrors = 'Not a valid email address'
 				this.emailValid = false
 			} else {
 				this.emailErrors = ''
 				this.emailValid = true
+			}
+		},
+		resetMessage() {
+			if (this.paymentSuccess === 1) {
+				this.paymentSuccess = -1
+				this.postPaymentMsg = ''
 			}
 		}
 	},
