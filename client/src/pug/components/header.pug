@@ -5,7 +5,7 @@ header(:class="{closed: closed, open: !closed}")
 	.name(@click=`togglePane('menu')`) Coco D' Nuts
 	.badges
 		#checkoutButton(@click='togglePane("checkout")')
-			.icon.shoppingBag(:title="parseFloat(order.quantity)")
+			.icon.shoppingBag(:title="order.quantity")
 			transition(name="fade" v-if="order.quantity"): .subtext Complete Order
 		.socialMedia
 			a.icon.yelp(href="https://www.yelp.com/biz/coco-d-nuts-reseda" title="Yelp" target="_blank")
