@@ -1,0 +1,44 @@
+#order
+  @extend .expand
+  position absolute
+  top 0
+  left 0
+  @extend .background
+  srcsets("../graphics/StirFry.jpg", 1, 5176, 2936)
+  @extend .center
+  .panel
+    @extend .backgroundSpecial
+    @extend .padding
+    display flex
+    justify-content space-around
+    align-items stretch
+    align-content stretch
+    flex-direction column
+    min-height 50vh
+    min-width 50vw
+    opacity 0.9
+    .name
+      @extend .Merienda-Yellow
+      @extend .h2
+    .description
+      @extend .Merienda-Yellow
+      @extend .h4
+      max-height 10vh
+      max-width 75vw
+      overflow auto
+      white-space pre
+    .price
+      @extend .Merienda-Green
+      @extend .h3
+    .quantity
+      display flex
+      justify-content space-around
+      align-items center
+      label
+        @extend .Merienda-Green
+        @extend .h4
+        @extend .flex-seconds
+      input
+        @extend .flex-seconds
+        max-width 30%
+        @extend .center-self

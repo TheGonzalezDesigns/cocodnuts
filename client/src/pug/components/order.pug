@@ -1,0 +1,10 @@
+#order(:class="{showRight: order.open, hideRight: !order.close}")
+  .panel
+    .name {{selected.name}}
+    .price {{selected.price | quantize(selected.quantity, selected.price) | round | sign | stringify(selected.quantity, selected.price) }}
+    .description {{selected.description}}
+    .quantity
+      label(for="quantity") Order amount
+      input(type="number" name="quantity" v-model="selected.quantity" min='0')
+    button.button(:class="{'is-danger': !(selected.quantity > 0), 'is-success': selected.quantity > 0}" @click="submitItem() || toggleOrder() || resume()")
+      | {{selected.quantity > 0 ? `add ${parseFloat(selected.quantity)} item${selected.quantity > 1 ? 's' : ''}` : 'return'}}
