@@ -1,24 +1,24 @@
 transition(name='fade' v-if=`view === 'checkout'`): #checkout
-	//form#payment-form
-		.form-row
-			label(for="card-element")
-				#card-element
-				//input(for='item in hidden_data' type='hidden' :name='item.name' :value='item.value')
-		#card-errors(role="alert")
-		input.button.is-success(type="submit")
-	#receipt: ul
-		li.h1 Your Order
-		li(v-for="item in order.list")
-			.name {{item.name}}
-			.total 
-				| {{item.quantity}}
-				| x
-				| {{item.price}}
-				| =
-				| {{item.total | sign}}
-		li.seperate
-				.name Your total
-				.total {{order.total | sign}}
-		li.seperate
-			input.button.is-success(type="submit")
-	button.delete.is-large(@click='togglePane("menu")')
+	#receipt 
+		ul(v-if="order.quantity")
+			li.h1 Your Order
+			li(v-for="item in order.list")
+				.name {{item.name}}
+				.total 
+					| {{item.quantity}}
+					| x
+					| {{item.price}}
+					| =
+					| {{item.total | sign}}
+			li.seperate
+					.name Your total
+					.total {{order.total | sign}}
+			li(:class="{hideRight: !charged, showRight: charged}")
+				form#payment-form
+					label.label(for="card-element")
+					#card-element
+					#card-errors.h4(role="alert")
+					transition(v-if='charged' name="fade"):  input#stripeButton.button.is-success(type="submit" disabled="true")
+			transition(name="fade" v-if='!charged'): li.serprate: input.button.is-success(type="submit" @click="charge" value="This is correct!")
+		ul(v-if="!order.quantity"): li.h1 looks like you haven't ordered yet...
+	button.delete.is-large(@click='togglePane("menu") || resetCharge()')
