@@ -1,8 +1,9 @@
 import styles from './styles'
 import Vue from 'vue'
-import stripe from './api/stripe'
+import {stripe, start} from './api/stripe'
 import router from './network/router'
 import {InvervalTimer} from './chrona'
+import {isNotEmail} from 'emailValidation'
 
 const vm = new Vue({
 	el: '#app',
@@ -30,7 +31,6 @@ const vm = new Vue({
 			total: 0,
 			list: {},
 			quantity: 0,
-			price: 0,
 			open: false
 		},
 		selected: {},
@@ -41,7 +41,12 @@ const vm = new Vue({
 		ready: false,
 		closed: true,
 		cycle: 0,
-		charged: false
+		created: false,
+		token: false,
+		card: false,
+		errorMessage: '',
+		emailErrors: '',
+		emailValid: false
 	},
 	methods: {
 		updateCategories() {
@@ -163,16 +168,18 @@ const vm = new Vue({
 			for (let item in this.order.list) {
 				quantity += this.order.list[item].quantity
 				total += this.order.list[item].total
+				//console.log('inner quantity', quantity)
 			}
-			this.order.total = total
+			this.order.total = Math.round(total * 100)/100
 			this.order.quantity = quantity
+			//console.log('quantity', quantity)
 		},
 		submitItem() {
 			const data = this.selected
 			const total = Math.floor(data.price * data.quantity * 100)/100
 			const item = {
 				name: data.name,
-				quantity: data.quantity,
+				quantity: parseFloat(data.quantity),
 				price: data.price,
 				total: total,
 			}
@@ -181,12 +188,39 @@ const vm = new Vue({
 			else if (this.order.list[item.name]) delete this.order.list[item.name]
 			this.calculateTotal()
 		},
-		charge() {
-			stripe.start()
-			this.charged = true
+		create() {
+			this.card = start()
+			this.created = true
 		},
-		resetCharge() {
-			this.charged = false
+		recreate() {
+			this.created = false
+		},
+		async charge() {
+			const {token, error} = await stripe.createToken(vm.card)
+			if (error) this.errorMessage = error.message
+			else {
+				this.checkEmail()
+				if (this.emailValid) this.token = token
+			}
+		},
+		checkEmail() {
+			const stripeButton = document.getElementById('stripeButton')
+			if (this.email.length) if (isNotEmail(this.email)) {
+				stripeButton.disabled = true
+				this.emailErrors = 'Not a valid email address'
+				this.emailValid = false
+			} else {
+				this.emailErrors = ''
+				this.emailValid = true
+			}
+		}
+	},
+	watch: {
+		token() {
+			if (this.token.id) router.charge(this.token.id, this.order, this.email)
+		},
+		email() {
+			this.checkEmail()
 		}
 	},
 	computed: {
@@ -220,7 +254,7 @@ const vm = new Vue({
 		stringify(value, quantity) {
 			const msg = quantity > 0 ? 'Your amount' : 'Original Price'
 			return `${msg}: ${value}`
-		}
+		},
 	}
 })
 global.vm = vm //For debugging only

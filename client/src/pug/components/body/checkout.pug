@@ -13,12 +13,18 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 			li.seperate
 					.name Your total
 					.total {{order.total | sign}}
-			li(:class="{hideRight: !charged, showRight: charged}")
+			li(:class="{hideRight: !created, showRight: created}")
 				form#payment-form
+					label.label(for="card-element") 
+						|To recieve a receipt...
+						br
+						|Enter your email
+					input.input#email(type="email" name="email" v-model="email" value="Please enter your email")
+					#email-errors.errors(role="alert") {{emailErrors}}
 					label.label(for="card-element")
 					#card-element
-					#card-errors.h4(role="alert")
-					transition(v-if='charged' name="fade"):  input#stripeButton.button.is-success(type="submit" disabled="true")
-			transition(name="fade" v-if='!charged'): li.serprate: input.button.is-success(type="submit" @click="charge" value="This is correct!")
+					#card-errors.errors(role="alert") {{errorMessage}}
+					transition(v-if='created' name="fade"):  input#stripeButton.button.is-success(type="submit" disabled="true" @click="charge()")
+			transition(name="fade" v-if='!created'): li.serprate: input.button.is-success(type="submit" @click="create()" value="This is correct!")
 		ul(v-if="!order.quantity"): li.h1 looks like you haven't ordered yet...
-	button.delete.is-large(@click='togglePane("menu") || resetCharge()')
+	button.delete.is-large(@click='togglePane("menu") || recreate()')

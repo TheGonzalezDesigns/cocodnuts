@@ -102,7 +102,8 @@ module.exports = {
 	resolve: {
 		alias: {
 			vue: 'vue/dist/vue.js',
-			normalize: 'normalize/index.styl'
+			normalize: 'normalize/index.styl',
+			emailValidation: 'sane-email-validation/index.js'
 		}
 	}
 }

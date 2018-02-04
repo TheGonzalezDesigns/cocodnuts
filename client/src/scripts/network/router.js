@@ -85,4 +85,9 @@ exports.requestDate = async () => {
 	return res.data[0]
 }
 
+exports.charge = (token, order, email) => {
+	console.log('Charging....')
+	client.post('/charge', {token, order, email})
+}
+
 exports.validate = validate
