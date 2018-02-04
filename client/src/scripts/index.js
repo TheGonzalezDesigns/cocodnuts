@@ -40,12 +40,10 @@ const vm = new Vue({
 		interval: 0,
 		ready: false,
 		closed: true,
-		cycle: 0
+		cycle: 0,
+		charged: false
 	},
 	methods: {
-		updatePopular() {
-			//this.food.popular;
-		},
 		updateCategories() {
 			const menu = this.food.menu
 			const categories = menu.items.map(item => item.category)
@@ -95,7 +93,7 @@ const vm = new Vue({
 			this.food.menu.preview = data
 		},
 		setView(view) {
-			//console.log('Setting view to ', view)
+			////console.log('Setting view to ', view)
 			this.view = view
 
 		},
@@ -131,17 +129,17 @@ const vm = new Vue({
 			this.schedule.open = (currently >= opening) && (currently < closing)
 		},
 		async initiateStoreHours() {
-			//console.log('Initiating Store Hours')
+			////console.log('Initiating Store Hours')
 			await this.getSchedule()
 			this.compareHours()
-			//console.log('Finishing Store Hours')
+			////console.log('Finishing Store Hours')
 		},
 		togglePane(view = '') {
 			if (view.length) {
 				this.setView(view)
 				this.closed = true
 			} else this.closed = false
-			//console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
+			////console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
 		},
 		toggleOrder() {
 			this.order.open = !this.order.open
@@ -149,15 +147,15 @@ const vm = new Vue({
 		loop() {
 			//setInterval(this.calesitar, 5000)
 			this.cycle = new InvervalTimer(this.calesitar, 5000)
-			console.log(this.cycle)
+			//console.log(this.cycle)
 		},
 		pause() {
 			this.cycle.pause()
-			console.log('Currently paused...')
+			//console.log('Currently paused...')
 		},
 		resume() {
 			this.cycle.resume()
-			console.log('Currently resumed...')
+			//console.log('Currently resumed...')
 		},
 		calculateTotal() {
 			let quantity = 0
@@ -178,11 +176,18 @@ const vm = new Vue({
 				price: data.price,
 				total: total,
 			}
-			console.log(`${item.name}\n\t${item.quantity} X ${item.price} = ${item.total}`)
+			//console.log(`${item.name}\n\t${item.quantity} X ${item.price} = ${item.total}`)
 			if (item.quantity > 0) this.order.list[item.name] = item
 			else if (this.order.list[item.name]) delete this.order.list[item.name]
 			this.calculateTotal()
 		},
+		charge() {
+			stripe.start()
+			this.charged = true
+		},
+		resetCharge() {
+			this.charged = false
+		}
 	},
 	computed: {
 		async start() {
@@ -193,6 +198,7 @@ const vm = new Vue({
 			const view = this.schedule.open ? 'menu' : 'closed'
 			this.setView(view)
 			this.ready = true
+			//stripe.start()
 		}
 	},
 	mounted() {
