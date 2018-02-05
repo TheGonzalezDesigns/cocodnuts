@@ -11,6 +11,9 @@ transition(name='fade' v-if=`view === 'checkout'`): #checkout
 					| =
 					| {{item.total | sign}}
 			li.seperate
+					.name Subtotal
+					.total {{order.subtotal | sign}}
+			li.seperate
 					.name Your total
 					.total {{order.total | sign}}
 			li(:class="{hideRight: (!created || paymentSuccess === 1), showRight: (created && paymentSuccess !== 1)}")
