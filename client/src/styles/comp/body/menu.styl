@@ -23,7 +23,9 @@ pattern = url("data:image/svg+xml,%3Csvg width='40' height='1' viewBox='0 0 40 1
 			font-family: 'Fredericka The Great'
 			@extend .transition
 			text-transform capitalize
-			min-height 10vh
+			min-height 10.1vh
+			@extend .text
+			overflow-y auto
 			&:nth-of-type(2n+1)
 				background: p.c
 				background: linear-gradient(to right, rgba(@background, 0.125), @background 5%, rgba(@background, 0.125))
