@@ -4,6 +4,7 @@ const express = require('express')
 const morgan = require('morgan')
 const path = require('path')
 const cors = require('cors')
+const {mail} = require('./mail')
 const {
 	cartel
 } = require('./cartel')
@@ -33,14 +34,15 @@ server.post('/', async (req, res) => {
 })
 server.post('/charge', async (req, res) => {
 	console.log('Recived POST (/Charge)\n', req.body)
-	const {token, order, email} = await req.body
+	const {token, order, email, data} = await req.body
+	const amount = Math.floor(order.total * 100)
 	await stripe.charges.create({
-		amount: (order.total * 100),
+		amount: amount,
 		currency: 'usd',
 		source: token,
 		receipt_email: email,
 		description: "Your order"
-	}, function (err, charge) {
+	}, async (err, charge) => {
 		// asynchronously called
 		if (err) {
 			console.error('Error:', err.message)
@@ -51,7 +53,10 @@ server.post('/charge', async (req, res) => {
 			res.send(false)
 		}else {
  			console.warn('Charge:', charge)
-			if (charge.paid) res.send(true)
+			if (charge.status == 'succeeded') {
+				await mail(email, {data: data})
+				res.send(true)
+			}
 			else res.send(false)
 		}
 	});
