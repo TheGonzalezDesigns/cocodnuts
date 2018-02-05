@@ -31,7 +31,10 @@ const vm = new Vue({
 			total: 0,
 			list: {},
 			quantity: 0,
-			open: false
+			open: false,
+			subtotal: 0,
+			taxRate: 0.095,
+			tax: 0
 		},
 		selected: {},
 		view: '',
@@ -48,7 +51,8 @@ const vm = new Vue({
 		emailErrors: '',
 		emailValid: false,
 		paymentSuccess: -1,
-		postPaymentMsg: ''
+		postPaymentMsg: '',
+		date: ''
 	},
 	methods: {
 		updateCategories() {
@@ -100,7 +104,7 @@ const vm = new Vue({
 			this.food.menu.preview = data
 		},
 		setView(view) {
-			////console.log('Setting view to ', view)
+			//console.log('Setting view to ', view)
 			this.view = view
 
 		},
@@ -120,6 +124,70 @@ const vm = new Vue({
 			this.schedule.freindly.opening = legible(date.opening)
 			this.schedule.freindly.closing = legible(date.closing)
 		},
+		setDate() {
+			const date = new Date()
+			let day, month, year = date.getFullYear()
+			switch (date.getDay()) {
+			case 0:
+				day = 'Sunday'
+				break
+			case 1:
+				day = 'Monday'
+				break
+			case 2:
+				day = 'Tuesday'
+				break
+			case 3:
+				day = 'Wednesday'
+				break
+			case 4:
+				day = 'Thursday'
+				break
+			case 5:
+				day = 'Friday'
+				break
+			case 6:
+				day = 'Saturday'
+			}
+			switch (date.getMonth()) {
+			case 0:
+				month = 'January'
+				break
+			case 1:
+				month = 'February'
+				break
+			case 2:
+				month = 'March'
+				break
+			case 3:
+				month = 'April'
+				break
+			case 4:
+				month = 'May'
+				break
+			case 5:
+				month = 'June'
+				break
+			case 6:
+				month = 'July'
+				break
+			case 7:
+				month = 'August'
+				break
+			case 8:
+				month = 'September'
+				break
+			case 9:
+				month = 'October'
+				break
+			case 10:
+				month = 'November'
+				break
+			case 11:
+				month = 'December'
+			}
+			this.date = `${day}, ${month} ${date.getDate()}, ${year}`
+		},
 		compareHours() {
 			const date = new Date()
 			const now = date.toTimeString().slice(0, 5)
@@ -136,17 +204,17 @@ const vm = new Vue({
 			this.schedule.open = (currently >= opening) && (currently < closing)
 		},
 		async initiateStoreHours() {
-			////console.log('Initiating Store Hours')
+			//console.log('Initiating Store Hours')
 			await this.getSchedule()
 			this.compareHours()
-			////console.log('Finishing Store Hours')
+			//console.log('Finishing Store Hours')
 		},
 		togglePane(view = '') {
 			if (view.length) {
 				this.setView(view)
 				this.closed = true
 			} else this.closed = false
-			////console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
+			//console.log(`Pane is currently ${this.closed ? 'closed' : 'open'}`)
 		},
 		toggleOrder() {
 			this.order.open = !this.order.open
@@ -166,13 +234,18 @@ const vm = new Vue({
 		},
 		calculateTotal() {
 			let quantity = 0
-			let total = 0
+			let subtotal = 0
 			for (let item in this.order.list) {
 				quantity += this.order.list[item].quantity
-				total += this.order.list[item].total
+				subtotal += this.order.list[item].total
 				//console.log('inner quantity', quantity)
 			}
-			this.order.total = Math.round(total * 100)/100
+			this.order.subtotal = Math.round(subtotal * 100)/100
+			//console.log('subtotal', this.order.subtotal)
+			this.order.tax = Math.round((this.order.subtotal * this.order.taxRate) * 100)/100
+			//console.log('tax', this.order.tax)
+			this.order.total = Math.round((this.order.subtotal + this.order.tax) * 100)/100
+			//console.log('total', this.order.total)
 			this.order.quantity = quantity
 			//console.log('quantity', quantity)
 		},
@@ -232,9 +305,9 @@ const vm = new Vue({
 	watch: {
 		async token() {
 			if (this.token.id) {
-				let res = await router.charge(this.token.id, this.order, this.email)
+				let res = await router.charge(this.token.id, this.order, this.email, this.date)
 				this.paymentSuccess = res ? 1 : 0
-				console.log(this.paymentSuccess)
+				//console.log(this.paymentSuccess)
 			}
 		},
 		email() {
@@ -253,6 +326,7 @@ const vm = new Vue({
 			this.initiateStoreHours()
 			const view = this.schedule.open ? 'menu' : 'closed'
 			this.setView(view)
+			this.setDate()
 			this.ready = true
 			//stripe.start()
 		}
@@ -279,4 +353,4 @@ const vm = new Vue({
 		},
 	}
 })
-global.vm = vm //For debugging only
+//global.vm = vm //For debugging only
