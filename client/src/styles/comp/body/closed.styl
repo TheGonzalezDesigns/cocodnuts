@@ -1,18 +1,19 @@
+genH(3,4)
 #closed
-	display flex
-	justify-content center
-	align-content center
-	align-items center
+	@extend .expand
+	@extend .center
 	flex-direction column
-	h1
-		font-size responsive 1rem 5rem
+	justify-content space-around
+	srcsets('../graphics/palmy.jpg', 5, 4928, 3264)
+	@extend .background
+	position absolute
+	top 0
+	left 0
+	.h1
+	.h2
+	.h3
+	.h4
+	.h5
+	.h6
+	a
 		@extend .caveat
-	h2
-		font-size responsive 0.75rem 4.75rem
-		@extend .caveat
-	h4
-		font-size responsive 0.5rem 4srem
-		@extend .caveat-green
-		a
-			font-family Roboto Slab
-			font-weight lighter
