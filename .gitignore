@@ -1,8 +1,10 @@
 */bower_components/
 */node_modules/
-/node_modules/ 
+/node_modules/
 */server/node_modules/
 */server/node_modules/*
+*/server/mails/templates/server/*
+/server/mails/templates/server/
 */src/api/
 /src/api/
 .brackets.json
