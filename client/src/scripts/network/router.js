@@ -85,9 +85,17 @@ exports.requestDate = async () => {
 	return res.data[0]
 }
 
-exports.charge = async (token, order, email) => {
+exports.charge = async (token, order, email, date) => {
 	console.log('Charging....')
-	const outcome = await client.post('/charge', {token, order, email})
+	const data = {
+		items: order.list,
+		subtotal: order.subtotal,
+		total: order.total,
+		tax: order.tax,
+		date: date,
+		email: email
+	}
+	const outcome = await client.post('/charge', {token, order, email, data})
 	console.log('outcome', outcome)
 	return outcome.data
 }
