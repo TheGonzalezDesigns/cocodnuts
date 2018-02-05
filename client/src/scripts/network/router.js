@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 let client = axios.create({
-	//baseUrl: 'cocodnuts.com'
-	proxy: {
-		host: '127.0.0.1',
-		port: 8080
-	}
+	baseUrl: 'cocodnuts.com'
+	// proxy: {
+	// 	host: '127.0.0.1',
+	// 	port: 8080
+	// }
 })
 
 const validate = (res) => {
