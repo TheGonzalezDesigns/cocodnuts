@@ -63,7 +63,7 @@ module.exports = {
 				test: /\.(jpe?g|png|gif)$/i,
 				use: [
 					'responsive-loader',
-					'file-loader?name=graphics/[name].[ext]',
+					//'file-loader?name=graphics/[name].[ext]',
 					'img-loader'
 				],
 			},
@@ -120,13 +120,13 @@ module.exports = {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
-		new WebpackMonitor({
-	    capture: true, // -> default 'true'
-	    target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
-	    launch: true, // -> default 'false'
-	    port: 3030, // default -> 8081
-	    excludeSourceMaps: true // default 'true'
-	  })
+		// new WebpackMonitor({
+	  //   capture: true, // -> default 'true'
+	  //   target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
+	  //   launch: true, // -> default 'false'
+	  //   port: 3030, // default -> 8081
+	  //   excludeSourceMaps: true // default 'true'
+	  // })
 	],
 	resolve: {
 		alias: {
