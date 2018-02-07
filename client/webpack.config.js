@@ -5,10 +5,8 @@ const webpack = require('webpack')
 const poststylus = require('poststylus')
 const WebpackMonitor = require('webpack-monitor')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const PurifyCSSPlugin = require('purifycss-extended-webpack')
 const freindlyFormatter = require('eslint-friendly-formatter')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const PATHS = {
 	src: path.join(__dirname, '/src'),
 	dist: path.join(__dirname, '/public'),
@@ -122,19 +120,6 @@ module.exports = {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
-		// new PurifyCSSPlugin({
-    //   paths: glob.sync(FILES.template),
-		// 	minimize: false,
-		// 	purifyOptions: {
-		// 		minify: false
-		// 	}
-    // }),
-		new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: {removeAll: true } },
-      canPrint: false
-    }),
 		new WebpackMonitor({
 	    capture: true, // -> default 'true'
 	    target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
