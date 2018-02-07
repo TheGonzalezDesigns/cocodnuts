@@ -11,15 +11,10 @@ genH(0.75, 3.25)
   transform-origin 144px 179.5px
   background rgb(255, 255, 255) url('../graphics/paper.png') repeat scroll 0 0 / auto padding-box border-box
   outline rgb(102, 102, 102) none 0
-  margin auto
-  margin-top 5.5rem
-  padding 1.5rem
+  margin 10px auto
   opacity 0.95
-  transform rotate(1deg)
+  transform rotate(0.75deg)
   @extend .transition
-  @media all and (orientation: landscape)
-    transform translateY(10%)
-    margin-bottom: 5rem;
   &:after
     background-position 0 0
     bottom -7px
@@ -70,11 +65,11 @@ genH(0.75, 3.25)
       align-content space-around
       flex-direction column
       .name
-        font-weight thin
+        font-weight 400
         align-self flex-start
         margin 0.5rem 0
       .total
-        font-weight lighter
+        font-weight 400
         align-self flex-end
         margin 0.5rem 0
       &:last-of-type
@@ -104,7 +99,7 @@ genH(0.75, 3.25)
       font-family Roboto Slab
       @extend .h4
       @extend .text
-      font-weight 200
+      font-weight 400
       text-transform uppercase
       text-align center
       white-space pre-wrap
