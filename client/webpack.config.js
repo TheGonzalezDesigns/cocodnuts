@@ -124,16 +124,16 @@ module.exports = {
 		}),
 		new PurifyCSSPlugin({
       paths: glob.sync(FILES.template),
-			minimize: true,
+			minimize: false,
 			purifyOptions: {
-				minify: true
+				minify: false
 			}
     }),
 		new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
       cssProcessorOptions: { discardComments: {removeAll: true } },
-      canPrint: true
+      canPrint: false
     }),
 		new WebpackMonitor({
 	    capture: true, // -> default 'true'
