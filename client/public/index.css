@@ -11164,7 +11164,7 @@ body #app #all {
   margin: 0.5rem 0;
 }
 #receipt ul li .total {
-  font-weight: lighter;
+  font-weight: 400;
   -ms-flex-item-align: end;
       align-self: flex-end;
   margin: 0.5rem 0;
