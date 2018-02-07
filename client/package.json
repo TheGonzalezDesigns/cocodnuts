@@ -13,10 +13,12 @@
 		"autoprefixer": "^7.2.5",
 		"axios": "^0.17.1",
 		"bulma.styl": "^0.6.11",
+		"cssnano": "^3.10.0",
 		"eslint-friendly-formatter": "^3.0.0",
 		"express": "^4.16.2",
 		"extract-text-webpack-plugin": "^3.0.2",
 		"html-webpack-plugin": "^2.30.1",
+		"img-loader": "^2.0.1",
 		"normalize": "^0.3.1",
 		"optimize-css-assets-webpack-plugin": "^3.2.0",
 		"package.json": "^2.0.1",
@@ -28,7 +30,8 @@
 		"vue": "^2.5.13",
 		"vue-stripe-elements": "^0.2.3",
 		"vue-stripe-elements-plus": "^0.2.7",
-		"webpack": "^3.10.0"
+		"webpack": "^3.10.0",
+		"webpack-monitor": "^1.0.14"
 	},
 	"devDependencies": {
 		"babel": "^6.23.0",
