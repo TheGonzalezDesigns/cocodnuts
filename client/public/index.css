@@ -10259,7 +10259,6 @@ header .badges .socialMedia {
   -ms-flex-item-align: center;
       align-self: center;
   height: 100%;
-  padding: 16px;
 }
 #checkout .help:first-of-type {
   font-size: calc(1rem + 2 * ((100vw - 26.25rem) / 53.75));
@@ -11089,8 +11088,7 @@ body #app #all {
   background: #fff url(15ba17e4c9c6594f0812ff6fbdad7a52-304.png) repeat scroll 0 0/auto padding-box border-box;
   outline: #666 none 0;
   margin: auto;
-  margin-top: 5.5rem;
-  padding: 1.5rem;
+  margin-bottom: 10px;
   opacity: 0.95;
   -webkit-transform: rotate(1deg);
           transform: rotate(1deg);
