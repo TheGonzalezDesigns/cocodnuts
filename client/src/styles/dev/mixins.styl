@@ -47,7 +47,7 @@ genPor(src, sets, height)
 	for set in (1..sets)
 		minHeight = round(taux * set)
 		@media only screen and (orientation: portrait) and (min-height: unit(minHeight, 'px'))
-			set += set < sets ? 1.5 : 0
+			set += set < sets ? 1 : 0
 			minHeight = round(taux * set)
 			source = src + '?size=' + minHeight
 			background-image url(source)
@@ -71,8 +71,7 @@ genH(min, max, unit = 'rem')
 		min = unit(min, unit)
 		class = '.h' + i
 		{class}
-			//font-size responsive min max
-			font-size: "calc(16px + %s)" % unit((.5 * i), 'vh')
+			font-size: "calc(16px + %s)" % unit((.5 * (14 - i)), 'vmin')
 animate(name, start, end)
 	startKeys = keys(start)
 	endKeys = keys(end)
