@@ -11087,11 +11087,10 @@ body #app #all {
           transform-origin: 144px 179.5px;
   background: #fff url(15ba17e4c9c6594f0812ff6fbdad7a52-304.png) repeat scroll 0 0/auto padding-box border-box;
   outline: #666 none 0;
-  margin: auto;
-  margin-bottom: 10px;
+  margin: 10px auto;
   opacity: 0.95;
-  -webkit-transform: rotate(1deg);
-          transform: rotate(1deg);
+  -webkit-transform: rotate(0.75deg);
+          transform: rotate(0.75deg);
 }
 #receipt:after {
   background-position: 0 0;
