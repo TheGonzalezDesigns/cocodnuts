@@ -11388,6 +11388,7 @@ body {
 }
 body #app {
   height: 100%;
+  width: 100%;
 }
 body #app #all {
   -webkit-box-orient: vertical;
@@ -11403,6 +11404,7 @@ body #app #all {
       -ms-flex-align: stretch;
           align-items: stretch;
   height: 100%;
+  width: 100%;
 }
 .showcase {
   position: fixed;
