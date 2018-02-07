@@ -71,7 +71,8 @@ genH(min, max, unit = 'rem')
 		min = unit(min, unit)
 		class = '.h' + i
 		{class}
-			font-size responsive min max
+			//font-size responsive min max
+			font-size: "calc(16px + %s)" % unit((.5 * i), 'vh')
 animate(name, start, end)
 	startKeys = keys(start)
 	endKeys = keys(end)
