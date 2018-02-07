@@ -71,7 +71,7 @@ genH(min, max, unit = 'rem')
 		min = unit(min, unit)
 		class = '.h' + i
 		{class}
-			font-size: "calc(16px + %s)" % unit((.5 * (14 - i)), 'vmin')
+			font-size: "calc(8px + %s)" % unit((.25 * (range - i)), 'vmin')
 animate(name, start, end)
 	startKeys = keys(start)
 	endKeys = keys(end)
