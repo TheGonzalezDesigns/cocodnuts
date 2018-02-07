@@ -122,13 +122,13 @@ module.exports = {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
-		new PurifyCSSPlugin({
-      paths: glob.sync(FILES.template),
-			minimize: false,
-			purifyOptions: {
-				minify: false
-			}
-    }),
+		// new PurifyCSSPlugin({
+    //   paths: glob.sync(FILES.template),
+		// 	minimize: false,
+		// 	purifyOptions: {
+		// 		minify: false
+		// 	}
+    // }),
 		new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
