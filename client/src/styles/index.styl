@@ -6,7 +6,7 @@
 
 body
 	display flex
-	width 100%
+	width 100vw
 	height 100vh
 	align-content stretch
 	justify-content stretch
@@ -23,6 +23,7 @@ body
 	srcsets('../graphics/CuttingBoard.jpg', 7, 6144, 4069)
 	#app
 		height 100%
+		width 100vw
 		#all
 			@extend .hide
 			flex-direction column
@@ -30,12 +31,13 @@ body
 			justify-content stretch
 			align-items stretch
 			height 100%
+			width 100vw
 .showcase
 	position fixed
 	top 0
 	left 0
 	display flex
-	width 100%
+	width 100vw
 	height 100vh
 	align-content center
 	justify-content center
