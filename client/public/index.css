@@ -10258,6 +10258,8 @@ header .badges .socialMedia {
 #checkout {
   -ms-flex-item-align: center;
       align-self: center;
+  height: 100%;
+  padding: 16px;
 }
 #checkout .help:first-of-type {
   font-size: calc(1rem + 2 * ((100vw - 26.25rem) / 53.75));
@@ -11093,13 +11095,6 @@ body #app #all {
   -webkit-transform: rotate(1deg);
           transform: rotate(1deg);
 }
-@media all and (orientation: landscape) {
-  #receipt {
-    -webkit-transform: translateY(10%);
-            transform: translateY(10%);
-    margin-bottom: 5rem;
-  }
-}
 #receipt:after {
   background-position: 0 0;
   bottom: -7px;
@@ -11166,7 +11161,7 @@ body #app #all {
           flex-direction: column;
 }
 #receipt ul li .name {
-  font-weight: thin;
+  font-weight: 400;
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin: 0.5rem 0;
@@ -11214,7 +11209,7 @@ body #app #all {
 #receipt form .errors,
 #receipt form .label {
   font-family: Roboto Slab;
-  font-weight: 200;
+  font-weight: 400;
   text-transform: uppercase;
   text-align: center;
   white-space: pre-wrap;
@@ -11292,7 +11287,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   -ms-flex-line-pack: stretch;
       align-content: stretch;
@@ -11419,7 +11414,7 @@ body #app #all {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   -ms-flex-line-pack: center;
       align-content: center;
