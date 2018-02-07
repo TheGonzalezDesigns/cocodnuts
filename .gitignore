@@ -7,5 +7,6 @@
 /server/mails/templates/server/
 */src/api/
 /src/api/
+*/monitor/
 .brackets.json
 package-lock.json
